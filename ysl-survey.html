@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Satisfaction Survey — YSL Beauty ION Orchard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111111;
+    --paper: #FBFAF8;
+    --card: #FFFFFF;
+    --gold: #A9814F;
+    --gold-soft: #E8DFCF;
+    --grey: #706C64;
+    --grey-light: #C9C4B8;
+    --line: #E4E0D6;
+    --error: #B3432B;
+    --radius: 2px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px 80px; }
+
+  .brandbar {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--ink); color: #fff;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .brandbar .mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+  }
+  .brandbar .mark span { color: var(--gold); }
+  .brandbar .sub {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey-light);
+    margin-top: 4px;
+  }
+
+  .progress-track {
+    display: flex; gap: 6px; max-width: 640px; margin: 0 auto;
+    padding: 14px 20px 0;
+  }
+  .progress-seg {
+    flex: 1; height: 3px; background: var(--line); border-radius: 2px;
+    overflow: hidden; position: relative;
+  }
+  .progress-seg > i {
+    display: block; height: 100%; width: 0%;
+    background: var(--gold); transition: width .4s ease;
+  }
+  .progress-labels {
+    display: flex; justify-content: space-between; max-width: 640px; margin: 0 auto;
+    padding: 6px 20px 0; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .intro {
+    background: var(--card); border: 1px solid var(--line);
+    padding: 32px 28px; margin-top: 28px; border-radius: var(--radius);
+  }
+  .intro h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500; font-size: 24px; margin: 0 0 6px;
+    line-height: 1.3;
+  }
+  .rule {
+    width: 40px; height: 2px; background: var(--gold); margin: 16px 0 20px; border: none;
+  }
+  .intro p { font-size: 14.5px; color: #333; margin: 0 0 14px; }
+  .intro .meta {
+    font-size: 13px; color: var(--grey); margin: 0 0 4px;
+  }
+  .section-list {
+    list-style: none; padding: 0; margin: 18px 0; display: grid; gap: 10px;
+  }
+  .section-list li {
+    display: flex; gap: 12px; align-items: baseline;
+    font-size: 14px; color: #333;
+  }
+  .section-list .tag {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    color: var(--gold); font-size: 15px; min-width: 20px;
+  }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    padding: 26px 24px; margin-top: 18px; border-radius: var(--radius);
+  }
+  .section-heading {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
+  }
+  .section-heading .num {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 26px; color: var(--gold); line-height: 1;
+  }
+  .section-heading h2 {
+    font-family: 'Playfair Display', serif; font-weight: 500;
+    font-size: 19px; margin: 0;
+  }
+  .section-instructions {
+    font-size: 13.5px; color: var(--grey); margin: 10px 0 20px;
+    padding-left: 38px;
+  }
+  .scale-legend {
+    font-size: 11.5px; color: var(--grey); padding-left: 38px; margin: -8px 0 18px;
+    letter-spacing: 0.03em;
+  }
+
+  .question {
+    padding: 18px 0 18px 38px; border-top: 1px solid var(--line);
+  }
+  .question:first-of-type { border-top: none; }
+  .question .qtext {
+    font-size: 14.5px; margin: 0 0 12px; color: #1a1a1a;
+  }
+  .qnum { color: var(--gold); font-weight: 600; margin-right: 6px; }
+
+  .likert {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+  }
+  .likert label {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    cursor: pointer;
+  }
+  .likert input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .likert .dot {
+    width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid var(--grey-light);
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s ease;
+  }
+  .likert input:checked + .dot {
+    background: var(--gold); border-color: var(--gold);
+  }
+  .likert input:checked + .dot::after {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: #fff;
+  }
+  .likert .lbl {
+    font-size: 10px; color: var(--grey); text-align: center; line-height: 1.2;
+    max-width: 70px;
+  }
+  .likert label:hover .dot { border-color: var(--gold); }
+
+  .choice-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .choice-group label {
+    border: 1.5px solid var(--line); border-radius: 20px;
+    padding: 9px 16px; font-size: 13.5px; cursor: pointer;
+    transition: all .15s ease; background: #fff;
+  }
+  .choice-group input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .choice-group input:checked + span {}
+  .choice-group label:has(input:checked) {
+    background: var(--ink); border-color: var(--ink); color: #fff;
+  }
+  .choice-group label:hover { border-color: var(--gold); }
+
+  .nav-row {
+    display: flex; justify-content: space-between; align-items: center; margin-top: 24px;
+  }
+  .btn {
+    font-family: 'Inter', sans-serif; font-size: 13.5px; letter-spacing: 0.04em;
+    padding: 13px 28px; border-radius: 20px; border: none; cursor: pointer;
+    text-transform: uppercase; font-weight: 600; transition: opacity .15s ease;
+  }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:disabled { background: var(--grey-light); cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--grey); border: 1.5px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+  .error-msg {
+    color: var(--error); font-size: 12.5px; margin-top: 10px; display: none;
+  }
+  .error-msg.show { display: block; }
+
+  .success {
+    text-align: center; padding: 60px 24px;
+  }
+  .success .mark { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--gold); margin-bottom: 8px; }
+  .success h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 22px; margin: 0 0 10px; }
+  .success p { color: var(--grey); font-size: 14px; }
+
+  .hidden { display: none !important; }
+
+  select {
+    width: 100%; padding: 11px 12px; border: 1.5px solid var(--line);
+    border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 14px;
+    background: #fff; color: var(--ink);
+  }
+
+  @media (max-width: 480px) {
+    .likert { gap: 3px; }
+    .likert .lbl { font-size: 8.5px; max-width: none; }
+    .likert .dot { width: 22px; height: 22px; }
+    .section-instructions, .question, .scale-legend { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brandbar">
+  <div class="mark">YSL <span>·</span> BEAUTY</div>
+  <div class="sub">Customer Satisfaction Study — ION Orchard</div>
+</div>
+
+<div class="progress-track" id="progressTrack">
+  <div class="progress-seg"><i id="segA"></i></div>
+  <div class="progress-seg"><i id="segB"></i></div>
+  <div class="progress-seg"><i id="segC"></i></div>
+</div>
+<div class="progress-labels">
+  <span>Expectations</span><span>Experience</span><span>About you</span>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="intro" id="screenIntro">
+    <h1>A few minutes of your time</h1>
+    <hr class="rule">
+    <p>Thank you for taking the time to take part in this survey. This survey is conducted by Lim Sher Yen, under the supervision of Dr. Lim Hui Ling (UTM), solely for the purpose of academic research in fulfilment of the requirements of a diploma course. It is not affiliated with, commissioned by, or conducted on behalf of YSL Beauty, L'Oréal, or Kering.</p>
+    <p>The purpose of this study is to better understand what customers expect from YSL Beauty as a brand, and how their actual experience at the ION Orchard outlet compares to those expectations.</p>
+    <ul class="section-list">
+      <li><span class="tag">A</span> Your general expectations of YSL Beauty as a brand.</li>
+      <li><span class="tag">B</span> Your actual experience at the YSL Beauty ION Orchard outlet.</li>
+      <li><span class="tag">C</span> A little about you.</li>
+    </ul>
+    <p class="meta">Takes about 5 minutes. Participation is voluntary — you may stop at any time. All responses are kept strictly confidential and used solely for academic research.</p>
+    <p class="meta">Questions? Contact wawalim92@yahoo.com.my</p>
+    <div class="nav-row" style="justify-content:flex-end;">
+      <button class="btn btn-primary" onclick="goToSection('A')">Begin survey</button>
+    </div>
+  </div>
+
+  <!-- SECTION A -->
+  <form class="card hidden" id="screenA">
+    <div class="section-heading"><span class="num">A</span><h2>Expectations</h2></div>
+    <p class="section-instructions">Please rate how important each of the following is to you when you think about YSL Beauty as a luxury beauty brand — regardless of whether you have visited the outlet.</p>
+    <p class="scale-legend">1 = Not important at all · 5 = Extremely important</p>
+    <div id="questionsA"></div>
+    <p class="error-msg" id="errorA">Please answer every question before continuing.</p>
+    <div class="nav-row">
+      <button type="button" class="btn btn-ghost" onclick="goToSection('Intro')">Back</button>
+      <button type="button" class="btn btn-primary" onclick="validateAndGo('A','B')">Continue</button>
+    </div>
+  </form>
+
+  <!-- SECTION B -->
+  <form class="card hidden" id="screenB">
+    <div class="section-heading"><span class="num">B</span><h2>Your experience at ION Orchard</h2></div>
+    <p class="section-instructions">Please answer based on your actual visit(s) to the YSL Beauty outlet at ION Orchard.</p>
+    <p class="scale-legend">1 = Strongly disagree · 5 = Strongly agree</p>
+    <div id="questionsB"></div>
+    <p class="error-msg" id="errorB">Please answer every question before continuing.</p>
+    <div class="nav-row">
+      <button type="button" class="btn btn-ghost" onclick="goToSection('A')">Back</button>
+      <button type="button" class="btn btn-primary" onclick="validateAndGo('B','C')">Continue</button>
+    </div>
+  </form>
+
+  <!-- SECTION C -->
+  <form class="card hidden" id="screenC">
+    <div class="section-heading"><span class="num">C</span><h2>About you</h2></div>
+    <p class="section-instructions">A little background information to help us understand our respondents.</p>
+    <div id="questionsC"></div>
+    <p class="error-msg" id="errorC">Please answer every question before submitting.</p>
+    <div class="nav-row">
+      <button type="button" class="btn btn-ghost" onclick="goToSection('B')">Back</button>
+      <button type="button" class="btn btn-primary" id="submitBtn" onclick="showSendOptions()">Continue</button>
+    </div>
+  </form>
+
+  <!-- SEND OPTIONS -->
+  <div class="card hidden" id="screenSend">
+    <div class="section-heading"><span class="num">·</span><h2>Send your response</h2></div>
+    <p class="section-instructions" style="padding-left:0;">Please choose how you'd like to send your completed survey to the researcher. This will open your chosen app with your answers pre-filled — just hit send from there.</p>
+    <div class="nav-row" style="flex-direction:column; gap:12px; align-items:stretch; margin-top:20px;">
+      <a href="#" id="waLink" class="btn btn-primary" style="width:100%; text-align:center; text-decoration:none; display:block; box-sizing:border-box;" target="_blank" rel="noopener" onclick="afterSend()">Send via WhatsApp</a>
+      <a href="#" id="smsLink" class="btn btn-primary" style="width:100%; text-align:center; text-decoration:none; display:block; box-sizing:border-box;" onclick="afterSend()">Send via Text Message</a>
+      <a href="#" id="emailLink" class="btn btn-primary" style="width:100%; text-align:center; text-decoration:none; display:block; box-sizing:border-box;" onclick="afterSend()">Send via Email</a>
+    </div>
+    <div class="nav-row" style="margin-top:20px;">
+      <button type="button" class="btn btn-ghost" onclick="goToSection('C')">Back</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="card success hidden" id="screenSuccess">
+    <div class="mark">·</div>
+    <h2>Almost there</h2>
+    <p>Your chosen app should now be open with your responses pre-filled. Please review and tap send to complete your submission. Thank you for your time and feedback!</p>
+  </div>
+
+</div>
+
+<script>
+const dataA = [
+  "A comfortable and inviting store environment (ambience, layout, cleanliness)",
+  "Consistent service quality regardless of which staff member serves me",
+  "Minimal waiting time, even during busy periods",
+  "Personalised product consultations and recommendations",
+  "Product recommendations that feel genuinely helpful rather than sales-driven",
+  "High product quality that justifies the price",
+  "Availability of preferred products in stock",
+  "Exclusive or limited-edition product offerings"
+];
+const scaleA = ["Not important at all","Slightly important","Moderately important","Very important","Extremely important"];
+
+const dataB = [
+  "The store environment (ambience, layout, cleanliness) met a high standard.",
+  "The quality of service was consistent regardless of which staff member served me.",
+  "I did not have to wait long before being attended to, even during busy periods.",
+  "Staff provided personalised product consultations and recommendations.",
+  "Staff recommendations felt genuinely helpful rather than sales-driven.",
+  "The products were of high quality and justified their price.",
+  "My preferred products were in stock during my visit.",
+  "The outlet offered exclusive or limited-edition products.",
+  "Overall, I am satisfied with my experience at YSL Beauty ION Orchard.",
+  "My experience met my expectations of YSL Beauty.",
+  "I would recommend YSL Beauty ION Orchard to others."
+];
+const scaleB = ["Strongly Disagree","Disagree","Neutral","Agree","Strongly Agree"];
+
+function buildLikertBlock(containerId, questions, scaleLabels, prefix) {
+  const container = document.getElementById(containerId);
+  questions.forEach((q, i) => {
+    const qNum = i + 1;
+    const div = document.createElement('div');
+    div.className = 'question';
+    let optionsHtml = '';
+    scaleLabels.forEach((label, idx) => {
+      const val = idx + 1;
+      optionsHtml += `
+        <label>
+          <input type="radio" name="${prefix}${qNum}" value="${val}">
+          <span class="dot"></span>
+          <span class="lbl">${label}</span>
+        </label>`;
+    });
+    div.innerHTML = `
+      <p class="qtext"><span class="qnum">${prefix}${qNum}.</span>${q}</p>
+      <div class="likert">${optionsHtml}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+buildLikertBlock('questionsA', dataA, scaleA, 'A');
+buildLikertBlock('questionsB', dataB, scaleB, 'B');
+
+// Section C — demographics
+const cContainer = document.getElementById('questionsC');
+function choiceQuestion(name, num, qtext, options) {
+  const div = document.createElement('div');
+  div.className = 'question';
+  let opts = options.map(o => `
+    <label><input type="radio" name="${name}" value="${o}"><span>${o}</span></label>
+  `).join('');
+  div.innerHTML = `<p class="qtext"><span class="qnum">${num}.</span>${qtext}</p><div class="choice-group">${opts}</div>`;
+  cContainer.appendChild(div);
+}
+function checkboxQuestion(name, num, qtext, options) {
+  const div = document.createElement('div');
+  div.className = 'question';
+  let opts = options.map(o => `
+    <label><input type="checkbox" name="${name}" value="${o}"><span>${o}</span></label>
+  `).join('');
+  div.innerHTML = `<p class="qtext"><span class="qnum">${num}.</span>${qtext} (select all that apply)</p><div class="choice-group">${opts}</div>`;
+  cContainer.appendChild(div);
+}
+
+choiceQuestion('C1', 'C1', 'Gender', ['Male','Female','Prefer not to say']);
+choiceQuestion('C2', 'C2', 'Age range', ['Below 20','20-29','30-39','40-49','50 and above']);
+choiceQuestion('C3', 'C3', 'Residency status', ['Singapore resident','Tourist or short-term visitor']);
+choiceQuestion('C4', 'C4', 'Monthly personal income (SGD)', ['Below $5,000','$5,000-$10,000','$10,000-$15,000','$15,000 and above','Prefer not to say']);
+checkboxQuestion('C5', 'C5', 'Which YSL Beauty product category have you purchased or considered?', ['Fragrance','Makeup','Skincare']);
+choiceQuestion('C6', 'C6', 'How many times have you visited the YSL Beauty ION Orchard outlet?', ['First-time visitor','Once a week','Once in a few months','Once a year']);
+choiceQuestion('C7', 'C7', 'What time did you typically visit?', ['Weekday, non-peak hours','Weekday, peak hours (lunch/after-work)','Weekend']);
+
+// Navigation
+const screens = ['Intro','A','B','C','Send','Success'];
+function goToSection(name) {
+  screens.forEach(s => {
+    const el = document.getElementById('screen' + s);
+    if (el) {
+      el.classList.add('hidden');
+      el.style.display = 'none';
+    }
+  });
+  const target = document.getElementById('screen' + name);
+  target.classList.remove('hidden');
+  target.style.display = '';
+  updateProgress(name);
+  window.scrollTo(0, 0);
+}
+function updateProgress(name) {
+  document.getElementById('segA').style.width = (name==='Intro'?0: name==='A'?60: 100) + '%';
+  document.getElementById('segB').style.width = (['Intro','A'].includes(name)?0: name==='B'?60: (['C','Send','Success'].includes(name))?100:0) + '%';
+  document.getElementById('segC').style.width = (['Intro','A','B'].includes(name)?0: name==='C'?60: (['Send','Success'].includes(name))?100:0) + '%';
+}
+
+function sectionComplete(letter, count) {
+  for (let i = 1; i <= count; i++) {
+    const checked = document.querySelector(`input[name="${letter}${i}"]:checked`);
+    if (!checked) return false;
+  }
+  return true;
+}
+
+function validateAndGo(fromLetter, toLetter) {
+  const counts = {A: dataA.length, B: dataB.length};
+  const errorEl = document.getElementById('error' + fromLetter);
+  if (!sectionComplete(fromLetter, counts[fromLetter])) {
+    errorEl.classList.add('show');
+    const firstUnanswered = findFirstUnanswered(fromLetter, counts[fromLetter]);
+    if (firstUnanswered) firstUnanswered.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  errorEl.classList.remove('show');
+  goToSection(toLetter);
+}
+
+function findFirstUnanswered(letter, count) {
+  for (let i = 1; i <= count; i++) {
+    const checked = document.querySelector(`input[name="${letter}${i}"]:checked`);
+    if (!checked) {
+      return document.querySelector(`input[name="${letter}${i}"]`).closest('.question');
+    }
+  }
+  return null;
+}
+
+const labelsA = ['StoreEnv','Consistency','WaitTime','Personalisation','Upselling','ProductQuality','StockAvail','Exclusivity'];
+const labelsB = ['StoreEnv','Consistency','WaitTime','Personalisation','Upselling','ProductQuality','StockAvail','Exclusivity','OverallSat','MetExpectations','Recommend'];
+
+function buildResponseSummary() {
+  const lines = [];
+  lines.push('YSL Beauty Survey Response');
+  lines.push('Submitted: ' + new Date().toLocaleString());
+  lines.push('');
+  const aVals = dataA.map((q, i) => {
+    const val = document.querySelector(`input[name="A${i+1}"]:checked`);
+    return labelsA[i] + '=' + (val ? val.value : '-');
+  }).join(', ');
+  lines.push('Section A (1-5 importance): ' + aVals);
+  const bVals = dataB.map((q, i) => {
+    const val = document.querySelector(`input[name="B${i+1}"]:checked`);
+    return labelsB[i] + '=' + (val ? val.value : '-');
+  }).join(', ');
+  lines.push('Section B (1-5 agreement): ' + bVals);
+  lines.push('');
+  lines.push('C1 Gender: ' + document.querySelector('input[name="C1"]:checked').value);
+  lines.push('C2 Age range: ' + document.querySelector('input[name="C2"]:checked').value);
+  lines.push('C3 Residency: ' + document.querySelector('input[name="C3"]:checked').value);
+  lines.push('C4 Monthly income: ' + document.querySelector('input[name="C4"]:checked').value);
+  lines.push('C5 Product category: ' + Array.from(document.querySelectorAll('input[name="C5"]:checked')).map(c => c.value).join('; '));
+  lines.push('C6 Visit frequency: ' + document.querySelector('input[name="C6"]:checked').value);
+  lines.push('C7 Visit timing: ' + document.querySelector('input[name="C7"]:checked').value);
+  return lines.join('\n');
+}
+
+function showSendOptions() {
+  const errorEl = document.getElementById('errorC');
+  const requiredSingle = ['C1','C2','C3','C4','C6','C7'];
+  let missing = false;
+  requiredSingle.forEach(name => {
+    if (!document.querySelector(`input[name="${name}"]:checked`)) missing = true;
+  });
+  if (!document.querySelector('input[name="C5"]:checked')) missing = true;
+
+  if (missing) {
+    errorEl.classList.add('show');
+    return;
+  }
+  errorEl.classList.remove('show');
+
+  const message = buildResponseSummary();
+  const phone = '6597785998';
+  const email = 'wawalim92@yahoo.com.my';
+
+  document.getElementById('waLink').href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const smsSep = isIos ? '&' : '?';
+  document.getElementById('smsLink').href = `sms:+${phone}${smsSep}body=${encodeURIComponent(message)}`;
+
+  const subject = encodeURIComponent('YSL Beauty Survey Response');
+  document.getElementById('emailLink').href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(message)}`;
+
+  goToSection('Send');
+}
+
+function afterSend() {
+  setTimeout(() => goToSection('Success'), 400);
+}
+</script>
+
+</body>
+</html>
