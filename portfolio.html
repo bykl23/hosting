@@ -242,6 +242,10 @@ a.ref:hover{background:var(--accent-soft)}
 .ef[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .wip{font:500 11px var(--mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;background:var(--signal-soft);color:var(--fg);padding:3px 8px;border-radius:999px;vertical-align:middle;margin-left:6px}
 
+/* back button after following a story link */
+.backbtn{position:fixed;z-index:20;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));font:600 13.5px var(--body);color:var(--bg);background:var(--fg);border:0;border-radius:999px;padding:11px 18px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.backbtn:hover{filter:brightness(1.15)}
+
 /* creds */
 .creds{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px}
 .cert{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding-block:12px;border-bottom:1px solid var(--line)}
@@ -303,7 +307,7 @@ footer{padding-block:32px 48px;color:var(--muted);font-size:12.5px;border-top:1p
     <div class="contactbar" id="contact">
       <div class="ci"><span class="label">Email</span><span class="val" id="email">lihong.karl@gmail.com</span><button class="copy" type="button" data-copy="email">Copy</button></div>
       <div class="ci"><span class="label">Mobile</span><span class="val" id="phone">+65 9819 9854</span><button class="copy" type="button" data-copy="phone">Copy</button></div>
-      <div class="ci"><span class="label">CV</span><a class="li-btn" href="https://bykl23.github.io/hosting/portfolio-cv.pdf" target="_blank" rel="noopener">View one-page CV (PDF) ↗</a></div>
+      <div class="ci"><span class="label">CV</span><a class="li-btn" href="karl-li-cv.pdf" target="_blank" rel="noopener">View one-page CV (PDF) ↗</a></div>
     </div>
     <p class="role">Helping organisations get real value from new technology: understanding how their work runs, building what they need, and supporting them through adoption.</p>
   </div>
@@ -622,6 +626,7 @@ footer{padding-block:32px 48px;color:var(--muted);font-size:12.5px;border-top:1p
 <footer>Karl Li (Li Hong) · Singapore · Updated October 2026</footer>
 </div>
 
+<button type="button" class="backbtn" id="backBtn" hidden>↩ Back to where I was</button>
 <script>
 const SKILLS = {
   "Customer success": ["Requirements discovery","Value proposition","Account & pipeline management","Solution design","Proof of concept","User adoption & training","Support & maintenance","Executive presentations"],
@@ -822,6 +827,27 @@ document.querySelectorAll("button.copy").forEach(b => b.onclick = async () => {
   catch { const r=document.createRange(); r.selectNodeContents(v); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent="Selected"; }
   setTimeout(()=>b.textContent="Copy",2000);
 });
+
+// remember where a story link was tapped, and offer a way back
+(() => {
+  const back = document.getElementById("backBtn");
+  let origin = null;
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a.ref");
+    if (!a) return;
+    origin = { y: scrollY, link: a };
+    back.hidden = false;
+  }, true);
+  back.onclick = () => {
+    if (!origin) return;
+    if (typeof active !== "undefined" && active) setFilter(null);
+    document.querySelectorAll(".flash").forEach(n => n.classList.remove("flash"));
+    const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scrollTo({ top: origin.y, behavior: smooth ? "smooth" : "auto" });
+    const link = origin.link; origin = null; back.hidden = true;
+    setTimeout(() => { link.classList.add("flash"); link.focus({preventScroll:true}); }, smooth ? 450 : 0);
+  };
+})();
 </script>
 
 </body>
