@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Karl Li · CV &amp; Portfolio</title>
+<meta name="description" content="CV and portfolio of Karl Li (Li Hong): product and team leader, 15 years delivering technology across banking, infrastructure, robotics and government.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: story first, evidence after — headline stories link down to a references band (experience, projects, skills, education, certifications) */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --fg:#13202C; --muted:#5A6878; --line:#D9E0E8;
+  --accent:#1E56C8; --accent-soft:#E3EBFA; --signal:#C77700; --signal-soft:#FBEFD9;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E151D; --surface:#151F2A; --fg:#E6ECF2; --muted:#93A2B2; --line:#25323F;
+  --accent:#7FA6F5; --accent-soft:#1B2B47; --signal:#F0B04A; --signal-soft:#3A2C12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E151D; --surface:#151F2A; --fg:#E6ECF2; --muted:#93A2B2; --line:#25323F;
+  --accent:#7FA6F5; --accent-soft:#1B2B47; --signal:#F0B04A; --signal-soft:#3A2C12; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1040px;margin:0 auto}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+.label{font:500 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:8px 20px;align-items:center;padding-block:10px}
+.launcher{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;justify-content:flex-start;-webkit-mask-image:linear-gradient(to right,#000 92%,transparent);mask-image:linear-gradient(to right,#000 92%,transparent);padding-right:24px}
+.launcher::-webkit-scrollbar{display:none}
+.launcher > :first-child{margin-left:auto}
+.launcher a.go{flex:none;font:500 12.5px var(--body);color:var(--fg);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);white-space:nowrap}
+.launcher a.go:hover{border-color:var(--accent);color:var(--accent)}
+.launcher a.go.totop{font-weight:600;color:var(--accent);border-color:var(--accent)}
+.launcher a.go.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+nav .mark span{color:var(--muted);font-weight:500}
+nav .mark{font:700 16px var(--display);flex:none;text-decoration:none;color:var(--fg)}
+nav a.lnk{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+nav a.lnk:hover{color:var(--accent)}
+
+/* hero */
+header.hero{padding-block:56px 40px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:end}
+.hero h1{font-size:clamp(34px,6.4vw,68px);font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+@media (max-width:370px){.hero h1{white-space:normal}}
+.hero h1 span{color:var(--accent)}
+.hero .role{font:500 clamp(17px,2.2vw,21px)/1.45 var(--body);margin:18px 0 0;max-width:34ch}
+.hero .now{margin-top:22px;display:inline-flex;gap:10px;align-items:center;font:500 12px var(--mono);
+  background:var(--signal-soft);color:var(--fg);padding:6px 12px;border-radius:999px}
+.hero .now i{width:8px;height:8px;border-radius:50%;background:var(--signal);display:block}
+.telemetry{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--surface);border-radius:10px;overflow:hidden}
+.telemetry div{padding:16px 18px;border-top:1px solid var(--line);border-left:1px solid var(--line);margin:-1px 0 0 -1px}
+.telemetry b{display:block;font:700 30px/1.1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.telemetry span{font-size:12.5px;color:var(--muted)}
+.telemetry b small{font:600 15px var(--body);color:var(--muted);letter-spacing:0}
+
+section{padding-block:48px;border-top:1px solid var(--line)}
+.sec-head{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4vw,38px);font-weight:700}
+
+/* profile */
+.profile{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:40px}
+.profile p{margin:0 0 14px;max-width:65ch}
+.profile ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.profile li{padding-left:18px;position:relative}
+.profile li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--signal)}
+
+.profile.solo{grid-template-columns:1fr}
+
+/* keyword tags */
+.skills{display:grid;gap:26px}
+.kwgroup h3{font:600 13px var(--body);margin-bottom:10px;display:flex;gap:8px;align-items:baseline}
+.kwgroup h3 span{font:500 11px var(--mono);color:var(--muted)}
+.cloud{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip.kw{display:inline-flex;align-items:baseline;gap:3px}
+.chip.kw sup{font:500 10px var(--mono);color:var(--muted);vertical-align:super}
+.chip.kw.t1{font-size:12px;color:var(--muted)}
+.chip.kw.t2{font-size:14px}
+.chip.kw.t3{font-size:16.5px;font-weight:600;border-color:var(--accent);background:var(--accent-soft)}
+.chip.kw.t4{font-size:20px;font-weight:700;border-color:var(--accent);background:var(--accent-soft);padding:7px 14px}
+.chip.kw[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.chip.kw[aria-pressed="true"] sup{color:inherit}
+
+/* skill index */
+
+.skills h3{font:600 13px var(--body);margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 12.5px var(--body);color:var(--fg);background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;padding:5px 10px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.filterbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:22px 0 0;min-height:32px;font-size:13.5px;color:var(--muted)}
+.filterbar button{font:500 12px var(--mono);background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:5px 10px;cursor:pointer}
+
+/* timeline */
+.log{position:relative;display:grid;gap:0}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr);gap:28px;padding-block:24px;border-top:1px dashed var(--line);transition:opacity .2s}
+.stage:first-child{border-top:0}
+.stage.dim{opacity:.28}
+.stage .when{font:500 12.5px/1.5 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.stage .when b{display:block;font:700 13px var(--mono);color:var(--signal);letter-spacing:.08em;margin-bottom:4px}
+.stage h3{font-size:22px;font-weight:700}
+.stage .org{font-weight:500;color:var(--accent);margin:4px 0 12px}
+.stage p{margin:0 0 10px;max-width:68ch}
+.stage ul{margin:0 0 12px;padding-left:18px;max-width:68ch}
+.stage li{margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:400 11.5px var(--mono);color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
+.tag.hit{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+
+/* approach */
+.approach{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.approach > *{border-top:3px solid var(--accent);padding-top:14px;min-width:0}
+.approach h3{font-size:20px;font-weight:700;margin:6px 0 8px}
+.approach p{margin:0;color:var(--muted);max-width:40ch}
+
+/* projects */
+.proj .for{font-size:13px;color:var(--fg)}
+.proj .for b{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:opacity .2s}
+.proj.dim{opacity:.28}
+.proj .kind{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--signal)}
+.proj h3{font-size:19px;font-weight:700}
+.proj p{margin:0;color:var(--muted);font-size:14px}
+.proj .tags{margin-top:auto;padding-top:6px}
+.proj a.try{align-self:flex-start;font:600 12.5px var(--body);color:var(--bg);background:var(--accent);text-decoration:none;padding:6px 12px;border-radius:999px}
+.proj a.try:hover{filter:brightness(1.1)}
+
+/* summary */
+.glance{margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.glance div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding-block:9px;border-bottom:1px solid var(--line)}
+.glance dt{font:500 11px/1.9 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.glance dt a{color:inherit;text-decoration:none}
+.glance dt a:hover{color:var(--accent)}
+.glance dd{margin:0;font-size:14px}
+.frameworks{margin-top:32px;display:grid;gap:10px}
+.worktypes h3{font-size:19px}
+.worktypes{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.lede{margin:0 0 24px;max-width:65ch;font-size:16px}
+.subhead{font-size:20px;font-weight:700;margin:44px 0 16px}
+.subhead.first{margin-top:0}
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));column-gap:40px}
+
+/* case study */
+#ref-delivered{display:block}
+#ref-delivered .case + .case{margin-top:20px}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(18px,3vw,32px);display:grid;gap:26px}
+.case-head{display:flex;gap:16px 32px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.case-head > div{min-width:0;flex:1 1 320px}
+.case-head h3{font-size:clamp(24px,3.4vw,32px);font-weight:700;margin:6px 0 10px}
+.case-head p{margin:0;max-width:62ch}
+.level{font:500 12px var(--mono);background:var(--signal-soft);color:var(--fg);padding:6px 12px;border-radius:999px;white-space:nowrap}
+.case-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.case-stats div{padding:16px 16px 16px 0}
+.case-stats b{display:block;font:700 28px/1.1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.case-stats span{font-size:13px;color:var(--muted)}
+.case-body{display:block}
+.case.compact{gap:18px}
+.case.dim{opacity:.28}
+.case-body ul{margin:10px 0 14px;padding-left:18px;display:grid;gap:6px}
+
+/* stories + references */
+.story-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.story{border-top:3px solid var(--signal);padding-top:16px;min-width:0;scroll-margin-top:90px}
+.story h3{font-size:22px;font-weight:700;margin:0 0 10px}
+.story p{margin:0;max-width:62ch}
+a.ref{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent);font-weight:500}
+a.ref::after{content:"↓";font-size:.8em;margin-left:2px}
+a.ref:hover{background:var(--accent-soft)}
+.where{margin-top:10px!important;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13.5px}
+.ref-band{display:block}
+.ref-intro{display:grid;gap:6px;padding-bottom:16px}
+.ref-intro h2{font-size:clamp(32px,5vw,48px);font-weight:800}
+.ref-intro p{margin:0;color:var(--muted);max-width:60ch}
+.refitem,.chip{scroll-margin-top:90px}
+.citedby{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin-top:12px;font-size:12.5px}
+.citedby span{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.citedby a{color:var(--accent);text-decoration:none}
+.citedby a::before{content:"↑ "}
+.citedby a:hover{text-decoration:underline}
+@keyframes flash{0%,40%{background:var(--signal-soft);box-shadow:0 0 0 6px var(--signal-soft)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
+.flash{animation:flash 1.8s ease-out}
+.proj.flash,.case.flash{animation-name:flashcard}
+@keyframes flashcard{0%,40%{box-shadow:0 0 0 3px var(--signal)}100%{box-shadow:0 0 0 3px transparent}}
+
+/* delivery models */
+.models{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.model{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
+.model h3{font-size:20px;font-weight:700;margin:0}
+.model .when{margin:0;color:var(--muted);font-size:14px}
+.model ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.meters{display:grid;gap:6px;padding-block:10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.meter{display:grid;grid-template-columns:minmax(0,1fr) auto 56px;gap:10px;align-items:center;font-size:13px}
+.meter em{font:500 11px var(--mono);font-style:normal;color:var(--muted);text-align:right}
+.dots{display:flex;gap:4px}
+.dots i{width:22px;height:6px;border-radius:3px;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.aiflow{margin-top:20px;display:grid;gap:10px}
+.aiflow ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.aiflow li{font:500 12.5px var(--body);padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--fg);position:relative}
+.aiflow li:not(:last-child)::after{content:"→";margin-left:10px;color:var(--muted)}
+.aiflow p{margin:0;font-size:13.5px;color:var(--muted)}
+#delivery-models{scroll-margin-top:90px}
+
+/* compact project cards */
+.more{padding-top:2px}
+.more .case-body > div > .label:first-child{display:none}
+.more summary{cursor:pointer;font:600 13px var(--body);color:var(--accent);list-style:none;display:flex;align-items:center;gap:6px}
+.more summary::-webkit-details-marker{display:none}
+.more summary::before{content:"+";font:600 15px var(--mono);width:14px}
+.more[open] summary::before{content:"−"}
+.more .case-body{margin-top:16px}
+.case{gap:18px}
+.case-head p{font-size:14.5px}
+.empfilter{display:flex;flex-wrap:wrap;gap:6px;margin:-12px 0 20px}
+.ef{font:500 12.5px var(--body);color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.ef[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.wip{font:500 11px var(--mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;background:var(--signal-soft);color:var(--fg);padding:3px 8px;border-radius:999px;vertical-align:middle;margin-left:6px}
+
+/* creds */
+.creds{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px}
+.cert{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding-block:12px;border-bottom:1px solid var(--line)}
+.cert b{font-weight:600}
+.cert span{font:400 12.5px var(--mono);color:var(--muted);text-align:right}
+.edu{display:grid;gap:18px}
+.edu b{display:block;font-weight:600}
+.edu span{color:var(--muted);font-size:14px}
+
+/* name + LinkedIn */
+.namerow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px}
+.li-btn{flex:none;font:600 11.5px var(--body);color:var(--bg);background:var(--accent);text-decoration:none;padding:4px 10px;border-radius:999px}
+.li-btn:hover{filter:brightness(1.1)}
+.namerow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.portrait{width:clamp(64px,9vw,92px);height:auto;aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line);flex:none}
+.name-li{font-size:13px;padding:7px 14px}
+.namecol{display:grid;gap:10px;min-width:0}
+.nameline{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.nameline .now{margin-top:0}
+
+/* contact bar */
+.contactbar{display:grid;gap:8px;margin-top:18px;padding-block:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ci{display:flex;align-items:center;gap:8px;min-width:0}
+.ci .label{min-width:52px}
+.ci .val{font:500 14.5px var(--body);color:var(--fg);text-decoration:none;user-select:all;overflow-wrap:anywhere}
+.ci a.val{color:var(--accent)}
+.copy{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--muted);border-radius:5px;padding:3px 8px;cursor:pointer}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+
+/* contact */
+.contact{display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center}
+.contact .big{font:700 clamp(22px,4vw,34px) var(--display);word-break:break-all}
+.btn{font:500 13px var(--body);background:var(--fg);color:var(--bg);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:none;color:var(--fg);border:1px solid var(--line)}
+footer{padding-block:32px 48px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  header.hero,.profile,.creds{grid-template-columns:1fr}
+  .story-list{grid-template-columns:1fr}
+  .stage{grid-template-columns:1fr;gap:8px}
+  nav .wrap{flex-direction:column;align-items:stretch;gap:8px}
+  .launcher{justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<nav aria-label="Quick launcher"><div class="wrap">
+  <a class="mark" href="#top">CV &amp; Portfolio <span>· Karl Li (Li Hong)</span></a>
+  <div class="launcher"><a class="go totop" href="#top">↑ Top</a><a class="go" href="#summary">Summary</a><a class="go" href="#stories">Stories</a><a class="go" href="#ref-experience">Experience</a><a class="go" href="#ref-delivered">Work projects</a><a class="go" href="#ref-own">Personal projects</a><a class="go" href="#method">Product engagements</a><a class="go" href="#ref-skills">Keywords</a><a class="go" href="#ref-education">Education &amp; certs</a></div>
+</div></nav>
+
+<div class="wrap" id="top">
+<header class="hero">
+  <div>
+        <div class="namerow"><img class="portrait" src="data:image/jpeg;base64,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" alt="Portrait of Karl Li" width="160" height="160"><div class="namecol"><h1>Karl Li <span>(Li Hong)</span></h1><div class="nameline"><div class="now"><i></i>Open to Customer Success roles in AI</div><a class="li-btn name-li" href="https://www.linkedin.com/in/lihongkarl" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div>
+    <div class="contactbar" id="contact">
+      <div class="ci"><span class="label">Email</span><span class="val" id="email">lihong.karl@gmail.com</span><button class="copy" type="button" data-copy="email">Copy</button></div>
+      <div class="ci"><span class="label">Mobile</span><span class="val" id="phone">+65 9819 9854</span><button class="copy" type="button" data-copy="phone">Copy</button></div>
+      <div class="ci"><span class="label">CV</span><a class="li-btn" href="karl-li-cv.pdf" target="_blank" rel="noopener">View one-page CV (PDF) ↗</a></div>
+    </div>
+    <p class="role">Helping organisations get real value from new technology: understanding how their work runs, building what they need, and supporting them through adoption.</p>
+  </div>
+  <div class="telemetry" aria-label="Career figures">
+    <div><b>15 <small>years</small></b><span>in tech delivery</span></div>
+    <div><b>8+ <small>years</small></b><span>leading teams</span></div>
+    <div><b>20 <small>people led</small></b><span>S$2M annual budget</span></div>
+    <div><b>S$18M+</b><span>delivered across 11+ projects</span></div>
+  </div>
+</header>
+
+<section id="summary">
+  <div class="sec-head"><h2>At a glance</h2></div>
+  <div class="profile solo">
+    <div>
+      <p>Product and team leader with 15 years of experience delivering technology solutions for business users and clients across banking, infrastructure, robotics and government. Technical enough to build the first version myself, today usually with Claude, and I support users through adoption until the solution is fully embedded.</p>
+      <p>Born in China and based in Singapore for 30 years; Singapore Citizen, no work visa required. Equally comfortable working with Chinese and local customers, and I often help bridge understanding between the two.</p>
+    </div>
+    </div>
+</section>
+
+
+
+<section id="stories">
+  <div class="sec-head"><h2>Stories from my experiences</h2></div>
+  <p class="lede">Each story links to the details further down the page. Tap a link to jump to it.</p>
+  <div class="story-list">
+    <article class="story" id="story-ai">
+      <h3>Applying AI in real work</h3>
+      <p>I have applied AI in customer solutions since my time at Inrovo, where we licensed a speech model from A*STAR so users of our <a class="ref" href="#proj-rosplatform">cloud robotics platform</a> could control robots by voice. At EDB, I built an agentic <a class="ref" href="#proj-kp">marketing knowledge platform</a> that finds the right source material and drafts content with citations, so the team can trust what it produces. In my personal projects, <a class="ref" href="#own-examstash">ExamStash</a> uses AI to read exam papers into a searchable question bank, and my <a class="ref" href="#own-agent">self-hosted AI server</a> runs local models. Because I use <a class="ref" href="#skill-claude-llms">Claude</a> hands-on myself, I can give practical advice based on real experience.</p>
+    </article>
+    <article class="story" id="story-product">
+      <h3>From user needs to products</h3>
+      <p>I start every product with the people who will use it. As a graduate at Barclays, I built a <a class="ref" href="#proj-storage">storage provisioning portal</a> for both the teams requesting storage and the team providing it, saving 60 man-days a month. At Inrovo, I led our <a class="ref" href="#proj-rosplatform">cloud robotics training platform</a> as an in-house product. At EDB, <a class="ref" href="#skill-requirements-discovery">discovery work</a> with HR, finance, marketing and other teams led to an <a class="ref" href="#proj-hr">HR platform</a> that complements Workday, now used by about 850 staff with 85% less time spent on HR tasks. Each engagement follows one of <a class="ref" href="#delivery-models">three engagement models</a>, chosen by the size of the change and how ready the business is to lead it.</p>
+    </article>
+    <article class="story" id="story-customer">
+      <h3>End-to-end customer management, from prospecting to after-sales support</h3>
+      <p>Running <a class="ref" href="#exp-inrovo">my own company</a> meant managing every stage of the customer relationship. As Singapore's sole Franka Emika distributor, I identified customers such as Dyson, A*STAR, NUS and NTU, <a class="ref" href="#skill-value-proposition">developed the value proposition</a>, quoted, closed and supported them, selling approximately 60 robot arms for about <a class="ref" href="#proj-franka">S$3.8M in revenue</a>. Earlier at <a class="ref" href="#exp-huawei">Huawei</a>, I worked with the sales team on proposals, ran <a class="ref" href="#proj-trials">trials with local banks</a>, and supported customers under <a class="ref" href="#skill-support-maintenance">maintenance contracts</a>.</p>
+    </article>
+    <article class="story" id="story-delivery">
+      <h3>Delivering complex projects on schedule</h3>
+      <p>Delivered S$18M+ across 11+ projects. At Barclays, I led the Visa and Mastercard stream of a two-year <a class="ref" href="#proj-cards">credit card migration</a>, integrated <a class="ref" href="#proj-fraud">fraud detection</a> products with the card system, and ran a <a class="ref" href="#proj-nps">customer feedback programme</a> that improved the customer service acceptance rate by over 50%. At Huawei, I delivered the full <a class="ref" href="#proj-apex">trading infrastructure for a new exchange</a> within six months. My <a class="ref" href="#cert-pmp">PMP</a> and <a class="ref" href="#skill-certified-scrummaster">Scrum</a> certifications support a delivery approach that spans waterfall and sprint-based releases.</p>
+    </article>
+    <article class="story" id="story-teams">
+      <h3>Leading and growing AI-ready teams</h3>
+      <p>At <a class="ref" href="#exp-edb">EDB</a>, I lead 20 product managers and developers on a S$2M annual budget, built up from a small core team. I moved the team to an AI-first way of working, with AI supporting design, coding, testing, deployment, security testing and monitoring, and match how we engage each business team to one of <a class="ref" href="#delivery-models">three engagement models</a>. This way of working built an <a class="ref" href="#proj-hr">HR platform</a> used by about 850 staff and an <a class="ref" href="#proj-office">office services super-app</a> for about 800. My earlier teams prepared me for this and spanned five countries: 20 developers across the UK, Lithuania, Singapore and India at <a class="ref" href="#exp-barclays">Barclays</a>, and <a class="ref" href="#proj-rosplatform">6 developers in China</a> at Inrovo, where being fluent in both Chinese and English helped bridge the two sides. My focus today is <a class="ref" href="#skill-people-development">developing people</a> so the team delivers independently.</p>
+    </article>
+  </div>
+</section>
+
+<div class="ref-band" id="references">
+  <section id="ref-experience">
+    <div class="sec-head"><h2>Work experience</h2></div>
+    <div class="log" id="log"></div>
+  </section>
+
+  <section id="ref-delivered">
+    <div class="sec-head"><h2>Work projects</h2></div>
+    <div class="empfilter" role="group" aria-label="Filter by employer"><button type="button" class="ef" aria-pressed="true" data-emp="">All</button><button type="button" class="ef" aria-pressed="false" data-emp="EDB">EDB</button><button type="button" class="ef" aria-pressed="false" data-emp="Inrovo">Inrovo</button><button type="button" class="ef" aria-pressed="false" data-emp="Huawei">Huawei</button><button type="button" class="ef" aria-pressed="false" data-emp="Barclays">Barclays</button></div>
+    <article class="case refitem" id="proj-kp" data-emp="EDB">
+      <div class="case-head">
+        <div>
+          <span class="label">EDB · 2026</span>
+          <h3>Marketing knowledge platform</h3>
+          <p>An AI assistant that finds the right source material and drafts grounded, cited content for a marketing team. Released and live. Staff ask in plain language instead of searching folders. The agent picks its own search filters, every answer cites its sources, and it works with any LLM provider.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>3</b><span>build phases: document library, AI agent, knowledge graph</span></div><div><b>2</b><span>interfaces on one service layer, REST and MCP, so other AI tools can connect</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Ran discovery with the marketing team and set the architecture.</li><li>Wrote the build specifications and delivered them with Claude Code.</li><li>Converted two of the team's existing assistants into the new agent format.</li></ul>
+          <div class="tags"><span class="tag">Claude</span><span class="tag">Claude Code</span><span class="tag">MCP</span><span class="tag">Python</span><span class="tag">Next.js</span><span class="tag">PostgreSQL + pgvector</span><span class="tag">RAG</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-hr" data-emp="EDB">
+      <div class="case-head">
+        <div>
+          <span class="label">EDB · 2026</span>
+          <h3>HR workflow platform</h3>
+          <p>An application covering HR requirements that Workday, the ERP system, does not support: performance appraisals, 360-degree feedback, individual development plans, claims, the org chart, and leave and special-leave calculations. Built end to end with an AI-first development lifecycle. A much simpler design cut a typical task from about 12 screens to 3.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>~850</b><span>staff using it</span></div><div><b>85%</b><span>less time on HR tasks than the previous app, with 12 screens cut to 3</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Worked with HR to understand their needs and design the workflows for each process.</li><li>Ran the AI-first lifecycle: mockups in Figma Make, Stitch and Claude Design, turned into baseline code to scaffold the project.</li><li>Built government security standards and the government design system into the scaffold, so authentication, SQL injection, cross-site checks and the rest of the OWASP Top 10 were handled from the start.</li><li>Delivered in priority-based sprints, with HR testing each release before phased deployment to production.</li></ul>
+          <div class="tags"><span class="tag">AI development lifecycle</span><span class="tag">Claude Design</span><span class="tag">Figma Make</span><span class="tag">Stitch</span><span class="tag">OWASP Top 10</span><span class="tag">Workday</span><span class="tag">Phased release</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-office" data-emp="EDB">
+      <div class="case-head">
+        <div>
+          <span class="label">EDB · 2026</span>
+          <h3>Office services super-app</h3>
+          <p>One app for all staff that replaces office tools scattered across SharePoint, OutSystems and Excel: room booking, car booking, leave tracking, the org chart, the phone book, internal billing and more. Built with the same AI-first development lifecycle as the HR platform.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>~800</b><span>staff across the organisation</span></div><div><b>~10</b><span>tools brought into one app</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Identified the scattered office tools to bring into one app.</li><li>Applied the same AI-first lifecycle: mockups first, then a compliant scaffold with government security standards and design system built in.</li><li>Delivered in priority-based sprints with user testing and phased releases.</li></ul>
+          <div class="tags"><span class="tag">AI development lifecycle</span><span class="tag">Consolidation</span><span class="tag">SharePoint</span><span class="tag">OutSystems</span><span class="tag">Staff experience</span><span class="tag">Phased release</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-franka" data-emp="Inrovo">
+      <div class="case-head">
+        <div>
+          <span class="label">Inrovo · 2017–2019</span>
+          <h3>Franka Emika cobots in Singapore</h3>
+          <p>As Singapore's sole distributor of Franka Emika collaborative robot arms, we sold to and supported leading universities, research institutes and manufacturers, including Dyson, A*STAR I2R, NUS, NTU, SUTD and SUSS. We also ran trials with local SMEs using the arms to test consumer electronics products.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>~60</b><span>robot arms sold in two years</span></div><div><b>~S$3.8M</b><span>total revenue from arms, installation and maintenance</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Found and qualified customers across research, education and manufacturing.</li><li>Presented the value of cobots for each customer's use case, quoted and closed.</li><li>Delivered, set up and supported the robots after sale.</li><li>Ran trial projects with local SMEs, setting up the cobot to test their consumer electronics products.</li></ul>
+          <div class="tags"><span class="tag">Franka Emika</span><span class="tag">Cobots</span><span class="tag">Distribution</span><span class="tag">B2B sales</span><span class="tag">SME trials</span><span class="tag">After-sales support</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-rosplatform" data-emp="Inrovo">
+      <div class="case-head">
+        <div>
+          <span class="label">Inrovo · 2017–2019</span>
+          <h3>Cloud robotics training platform</h3>
+          <p>An online platform where students and robotics enthusiasts learn ROS, the standard robot operating system. Each user gets their own ROS environment in the cloud, connects real robots such as the Franka Emika arm, and watches and controls them in real time, including by voice.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>1 per user</b><span>on-demand ROS environment, spun up on Kubernetes</span></div><div><b>Real-time</b><span>remote viewing and control of physical robots</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Led the product as CEO and managed the offshore development team of 6 developers in China who built it.</li><li>Built it on Kubernetes: each session spun up a dedicated Kubernetes instance, kept until the user destroyed it, so performance stayed fast.</li><li>Brought in a speech model licensed from A*STAR so users could control robots by voice, before today's AI tools made that common.</li><li>Offered training and support for users, including on the Franka Emika arm.</li></ul>
+          <div class="tags"><span class="tag">ROS</span><span class="tag">Kubernetes</span><span class="tag">Cloud</span><span class="tag">Real-time control</span><span class="tag">Speech recognition</span><span class="tag">EdTech</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-apex" data-emp="Huawei">
+      <div class="case-head">
+        <div>
+          <span class="label">Huawei · 2017</span>
+          <h3>Trading infrastructure for a new exchange</h3>
+          <p>Built the complete infrastructure for APEX, a new exchange in Singapore, so its trades run with low latency between its office and the markets. Everything from two data-centre sites to the monitors on desks, then supported under a maintenance contract.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>~S$3–4M</b><span>project value</span></div><div><b>6 mo</b><span>from start to live</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Proposed the solution together with the sales team.</li><li>Led delivery of the low-latency infrastructure across the office data centre and rented data-centre racks, and tested the whole setup.</li><li>Set up the office itself: conferencing tools, workstations and monitors.</li><li>Made sure it handed over smoothly to support and maintenance after go-live.</li></ul>
+          <div class="tags"><span class="tag">Low-latency trading</span><span class="tag">Data centre</span><span class="tag">Servers &amp; storage</span><span class="tag">Network</span><span class="tag">Unified comms</span><span class="tag">Maintenance contract</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-trials" data-emp="Huawei">
+      <div class="case-head">
+        <div>
+          <span class="label">Huawei · 2017</span>
+          <h3>Trial projects with local banks</h3>
+          <p>Two trials that let local banks test Huawei technology in their own environment before committing: facial recognition cameras in ATM lobbies, and a Huawei wireless network to replace a bank's existing one.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>2</b><span>trials run at local banks</span></div><div><b>Head to head</b><span>against the bank's incumbent wireless vendor</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li><b>Facial recognition:</b> installed Huawei cameras in selected ATM lobbies of a local bank to improve security and track how customers use the space.</li><li><b>Wireless:</b> installed Huawei wireless at another local bank to test it as a replacement for their existing Aruba network.</li></ul>
+          <div class="tags"><span class="tag">Proof of concept</span><span class="tag">Facial recognition</span><span class="tag">Enterprise Wi-Fi</span><span class="tag">Banking</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-fraud" data-emp="Barclays">
+      <div class="case-head">
+        <div>
+          <span class="label">Barclays · 2012–2016</span>
+          <h3>Fraud detection</h3>
+          <p>Two projects that connected the credit card system to commercial fraud engines: FICO to check card transactions as they happen, and GBG's Instinct to check new card applications for fraud such as fake documents or stolen identities.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>2</b><span>commercial fraud products integrated: FICO and Instinct</span></div><div><b>Real-time</b><span>checks on card transactions and new applications</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li><b>FICO:</b> managed onboarding of the product and its integration with the credit card system.</li><li><b>Instinct:</b> one of the project managers, responsible for the integration with the credit card system, including its real-time checks.</li></ul>
+          <div class="tags"><span class="tag">FICO</span><span class="tag">GBG Instinct</span><span class="tag">COTS onboarding</span><span class="tag">Real-time integration</span><span class="tag">Fraud prevention</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-nps" data-emp="Barclays">
+      <div class="case-head">
+        <div>
+          <span class="label">Barclays · 2012–2016</span>
+          <h3>Customer feedback (Net Promoter Score) programme</h3>
+          <p>A system that surveys online banking customers right after they transact, by email or text message, so the bank could measure customer satisfaction. Delivered with Ipsos, the research firm, who sent the surveys and analysed the results.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>2</b><span>survey channels, email and SMS</span></div><div><b>&gt;50%</b><span>improvement in customer service acceptance rate after NPS became a service quality indicator</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Managed the project with Ipsos as the external partner.</li><li>Integrated online banking with Ipsos so a survey was triggered after each transaction.</li><li>Coordinated Ipsos on sending the surveys and tallying the results.</li></ul>
+          <div class="tags"><span class="tag">Net Promoter Score</span><span class="tag">Ipsos</span><span class="tag">Customer experience</span><span class="tag">Email &amp; SMS</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-cards" data-emp="Barclays">
+      <div class="case-head">
+        <div>
+          <span class="label">Barclays · 2012–2016</span>
+          <h3>Credit card platform migration</h3>
+          <p>A two-year programme moving the bank's credit card business from the Prime system to VisionPLUS on the mainframe. I led the scheme integration stream: connecting the new platform to Visa and Mastercard and keeping it compliant with their scheme rules.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>~2 yrs</b><span>programme duration</span></div><div><b>2</b><span>card schemes integrated, Visa and Mastercard</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Led the scheme integration stream, a one-year stream of 4 people within the wider migration programme.</li><li>Worked with external partners and the card schemes to build and test the integrations with the new system.</li><li>Owned scheme compliance work so the new platform met Visa and Mastercard requirements.</li><li>After go-live, ran day-two operations: ongoing VisionPLUS updates and the regular scheme compliance releases.</li></ul>
+          <div class="tags"><span class="tag">VisionPLUS</span><span class="tag">Mainframe migration</span><span class="tag">Visa</span><span class="tag">Mastercard</span><span class="tag">Scheme compliance</span><span class="tag">External partners</span></div>
+        </div>
+      </div></details>
+    </article>
+
+    <article class="case refitem" id="proj-storage" data-emp="Barclays">
+      <div class="case-head">
+        <div>
+          <span class="label">Barclays · 2012</span>
+          <h3>Storage provisioning portal</h3>
+          <p>Teams across the bank requested storage for their servers through Excel, across NetApp, EMC, VMware and database platforms in hot and cold tiers, and there was no clear view of what had been requested or provisioned. I replaced this with one portal for requests and provisioning, plus a trend dashboard for management.</p>
+        </div>
+      </div>
+      <div class="case-stats">
+        <div><b>60</b><span>man-days saved per month</span></div><div><b>3</b><span>user groups on one portal: requesters, provisioners, management</span></div>
+      </div>
+      <details class="more"><summary>My role</summary><div class="case-body">
+        <div><span class="label">My role</span>
+          <ul><li>Designed and built the portal myself as a SharePoint app in ASP.NET.</li><li>Built a request workflow so teams submit storage requests through the portal instead of Excel.</li><li>Gave the infrastructure team a provisioning view to record what they had allocated.</li><li>Built a dashboard of requested versus provisioned storage over time, used by managers up to senior executives.</li></ul>
+          <div class="tags"><span class="tag">ASP.NET</span><span class="tag">C#</span><span class="tag">SharePoint</span><span class="tag">NetApp</span><span class="tag">EMC</span><span class="tag">VMware</span><span class="tag">Workflow &amp; dashboard</span></div>
+        </div>
+      </div></details>
+    </article>
+  </section>
+
+  <section id="ref-own">
+    <div class="sec-head"><h2>Personal projects</h2></div>
+    <div class="projects" id="projectGrid"></div>
+  </section>
+
+  <section id="method">
+    <div class="sec-head"><h2>Product engagements with customers</h2></div>
+    
+  
+    <h3 class="subhead first" id="delivery-models">Three engagement models, matched to the request</h3>
+    <p class="lede">Which model fits depends on two things: how big the change is, and how ready the business is to do its own design, framing and discovery. The model is agreed before work starts, so customers know what is expected of them.</p>
+    <ol class="models"><li class="model"><span class="label">Model 1</span><h3>Collaborative</h3><p class="when">Business is ready to do design, framing and discovery alongside us.</p><div class="meters"><div class="meter"><span>Business</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div><div class="meter"><span>Product manager</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div><div class="meter"><span>Developers</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div></div><ul><li>Business and product team discover the problem together, design the new process and sketch the screens side by side.</li><li>User stories are iterated, tested and released in sprints.</li></ul></li><li class="model"><span class="label">Model 2</span><h3>Product manager-led</h3><p class="when">Business isn't ready to lead that work yet, so the PM does it for them.</p><div class="meters"><div class="meter"><span>Business</span><span class="dots" aria-label="Low"><i class="on"></i><i></i><i></i></span><em>Low</em></div><div class="meter"><span>Product manager</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div><div class="meter"><span>Developers</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div></div><ul><li>Business hands over requirements. The PM digs out the context and real needs, designs the solution and briefs the developers.</li><li>Internal development sprints, with release sprints where the business tests the outcome.</li></ul></li><li class="model"><span class="label">Model 3</span><h3>Developer-led</h3><p class="when">Small change request: a label, an error message, a button.</p><div class="meters"><div class="meter"><span>Business</span><span class="dots" aria-label="Low"><i class="on"></i><i></i><i></i></span><em>Low</em></div><div class="meter"><span>Product manager</span><span class="dots" aria-label="Low"><i class="on"></i><i></i><i></i></span><em>Low</em></div><div class="meter"><span>Developers</span><span class="dots" aria-label="High"><i class="on"></i><i class="on"></i><i class="on"></i></span><em>High</em></div></div><ul><li>Developers take the request straight from the user.</li><li>Skip discovery and solutioning; go straight to code and test.</li><li>The PM stays lightly involved for business matters such as cross-charging and other non-development work.</li></ul></li></ol>
+    <div class="aiflow">
+      <span class="label">AI supports every model, end to end</span>
+      <ol><li>Design</li><li>Solutioning</li><li>Coding</li><li>Testing</li><li>CI/CD</li><li>Security testing</li><li>Monitoring</li></ol>
+      <p>Monitoring of logs and performance feeds back into the next design, closing the loop.</p>
+    </div>
+  
+    
+  
+    <div class="frameworks">
+      <span class="label">Frameworks I deliver with</span>
+      <div class="tags">
+        <span class="tag">AI-first development lifecycle</span><span class="tag">Balanced teams (Tanzu / ex-Pivotal)</span><span class="tag">Agile &amp; Scrum</span><span class="tag">User stories &amp; release planning</span><span class="tag">Waterfall / PMBOK</span><span class="tag">Proof of concept</span><span class="tag">Vendor-led SDLC</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="ref-skills">
+    <div class="sec-head"><h2>Keyword tags</h2></div>
+    <p class="lede">All tags used across my experience and projects, grouped by type. Larger tags appear more often. Tap one to highlight where it appears.</p>
+    <div class="skills" id="skillGroups"></div>
+    <div class="filterbar" id="filterbar" aria-live="polite">Tap a tag to highlight where it appears.</div>
+  </section>
+
+  <section id="ref-education">
+    <div class="sec-head"><h2>Education &amp; certifications</h2></div>
+    <div class="edu">
+      <div class="refitem" id="edu-nus"><b>National University of Singapore</b><span>B.Eng. Electrical &amp; Computer Engineering · CAP 4.1 / 5.0 · 2007–2011</span></div>
+      <div class="refitem" id="cert-pmp"><b>Project Management Professional (PMP)</b><span>PMI · active</span></div>
+    </div>
+  </section>
+</div>
+
+
+
+<footer>Karl Li (Li Hong) · Singapore · Updated October 2026</footer>
+</div>
+
+<script>
+const SKILLS = {
+  "Customer success": ["Requirements discovery","Value proposition","Account & pipeline management","Solution design","Proof of concept","User adoption & training","Support & maintenance","Executive presentations"],
+  "Product & delivery": ["People development","Product management","Project management","Agile / Scrum","Stakeholder management","Vendor management","Tender & RFx","Team leadership"],
+  "Domains": ["Banking & payments","Gov-tech","Robotics","Infrastructure","Data & BI","AI agents"],
+  "Technology": ["Python","C# / .NET","AWS","ROS","Low-code & RPA","Next.js","PostgreSQL","Claude & LLMs"],
+  "Tools": ["JIRA & Confluence","MS Dynamics 365","UiPath","Tableau","Salesforce","Git"]
+};
+
+const ROLES = [
+  {id:"exp-edb", when:"Dec 2019 – Present", title:"Product & Team Manager", org:"Singapore Economic Development Board (EDB)",
+   summary:"Joined as a project manager for internal corporate systems and grew into leading the product and engineering team.",
+   points:["Lead 20 product managers and developers on a S$2M annual budget; my focus is coaching, performance and growing the team.",
+     "Serve the agency's own teams: HR, finance, internal audit, IT, marketing and brand.",
+     "Moved the team to an AI-first development lifecycle (see Work projects)."],
+   tags:["People development","Team leadership","Product management","Requirements discovery","AI development lifecycle","Gov-tech"]},
+  {id:"exp-inrovo", when:"Dec 2017 – Nov 2019", title:"CEO & Co-Founder", org:"Inrovo Pte Ltd (robotics solutions)",
+   summary:"Co-founded a robotics company and managed all aspects of the business.",
+   points:["Sole Singapore distributor of Franka Emika robot arms; customers included Dyson, A*STAR I2R, NUS, NTU, SUTD and SUSS.",
+     "Managed the full customer cycle: prospecting, proposals, quotation, closing, delivery and after-sales support.",
+     "Managed a 6-person development team in China building our cloud robotics platform."],
+   tags:["Value proposition","Account & pipeline management","Support & maintenance","Robotics","Team leadership"]},
+  {id:"exp-huawei", when:"Jan – Dec 2017", title:"Senior Service Manager (pre-sales & delivery)", org:"Huawei",
+   summary:"Proposed infrastructure solutions alongside sales, then delivered and supported them.",
+   points:["Solutions across storage, servers, databases, OpenStack and cloud, UPS and networks.",
+     "Led a 5-person team delivering projects and supporting customers under maintenance contracts.",
+     "Customers included DBS, OCBC, UOB, SMBC and Bank of China."],
+   tags:["Solution design","Value proposition","Support & maintenance","Infrastructure","Banking & payments"]},
+  {id:"exp-barclays", when:"Sep 2012 – Dec 2016", title:"IT Project Manager", org:"Barclays PLC",
+   summary:"Delivered projects for business users in the cards and online banking businesses.",
+   points:["Worked directly with business users, turning needs into plans and managing timelines.",
+     "Led 20 developers across the UK, Lithuania, Singapore and India, plus third-party vendors.",
+     "Projects in card migration, fraud detection and customer feedback (see Work projects)."],
+   tags:["Project management","Stakeholder management","Vendor management","Banking & payments","Team leadership"]},
+  {id:"exp-fldp", when:"Sep 2011 – Aug 2013", title:"Future Leaders Development Programme", org:"Barclays PLC",
+   summary:"Two-year graduate programme of four 6-month rotations across IT.",
+   points:["Rotations in network and infrastructure, then two in project management.",
+     "Built a storage provisioning portal that saved 60 man-days a month (see Work projects)."],
+   tags:["C# / .NET","Infrastructure","Requirements discovery"]}
+];
+
+const PROJECTS = [
+  {kind:"iOS app", id:"own-littlepawnote", name:"LittlePawNote", for:"Cat owners in Singapore", desc:"A mobile app for cat owners to track their cat's health and vet visits, and find cat-friendly vets and places near home. Built in Swift on Supabase, with Claude Code.", tags:["Swift","iOS","Supabase","Claude Code","Product management"]},
+  {kind:"Web app", id:"own-examstash", name:"ExamStash", for:"Students and parents", desc:"AI-powered reading of exam papers, going beyond plain OCR, puts every question into a database. Users search the questions and generate their own versions of an exam paper.", tags:["Next.js","PostgreSQL","Claude & LLMs","Product management","Solution design"]},
+  {kind:"AI infrastructure", id:"own-agent", name:"Home AI server", for:"Myself", desc:"A Mac Mini at home, reachable over the internet, that hosts some of my apps directly from my home connection and runs local AI models for simple tasks.", tags:["Local LLMs","Self-hosting","Infrastructure","AI agents"]},
+  {kind:"Decision tool", id:"own-psle", name:"PSLE Posting Helper", for:"Parents choosing schools", desc:"Shows which secondary schools a child is likely to qualify for, based on their PSLE score and each school's cut-off points.", tags:["Product management","Gov-tech","Requirements discovery"]}
+];
+
+
+
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => {const e=document.createElement(t); if(c) e.className=c; if(h!=null) e.innerHTML=h; return e;};
+let active = null;
+
+
+ROLES.forEach(r => {
+  const s = el("article","stage refitem"); s.id = r.id; s.dataset.tags = r.tags.join("|");
+  s.append(el("div","when",r.when));
+  const body = el("div");
+  body.append(el("h3",null,r.title), el("div","org",r.org), el("p",null,r.summary));
+  if (r.points.length){ const ul=el("ul"); r.points.forEach(p=>ul.append(el("li",null,p))); body.append(ul); }
+  const t = el("div","tags"); r.tags.forEach(x=>{const g=el("span","tag",x); g.dataset.t=x; t.append(g);}); body.append(t);
+  s.append(body); $("#log").append(s);
+});
+
+PROJECTS.forEach(p => {
+  const c = el("article","proj refitem"); c.id = p.id; c.dataset.tags = p.tags.join("|");
+  c.append(el("div","kind",p.kind), el("h3",null,p.name), el("div","for",`<b>Built for</b>${p.for}`), el("p",null,p.desc));
+  if (p.link) { const a = el("a","try","Try it live ↗"); a.href = p.link; a.target = "_blank"; a.rel = "noopener"; c.append(a); }
+  const t = el("div","tags"); p.tags.forEach(x=>{const g=el("span","tag",x); g.dataset.t=x; t.append(g);}); c.append(t);
+  $("#projectGrid").append(c);
+});
+
+
+// ---- Keyword tags: every tag on the page, normalised, counted and grouped ----
+const ALIAS = {"Claude":"Claude & LLMs","C#":"C# / .NET","ASP.NET":"C# / .NET","Agile & Scrum":"Agile / Scrum","AI-first development lifecycle":"AI development lifecycle",
+  "Banking":"Banking & payments","PostgreSQL + pgvector":"PostgreSQL","After-sales support":"Support & maintenance","Maintenance contract":"Support & maintenance",
+  "SME trials":"Proof of concept","Maintenance":"Support & maintenance"};
+const norm = t => ALIAS[t] || t;
+const CATS = [
+  ["Customer & business", ["Requirements discovery","Value proposition","Account & pipeline management","Solution design","Proof of concept","User adoption & training","Support & maintenance","Executive presentations","Stakeholder management","Tender & RFx","B2B sales","Distribution","Customer experience","External partners","Vendor management","Net Promoter Score","Staff experience","Consolidation"]],
+  ["Leadership & delivery", ["Product management","Project management","Team leadership","People development","Agile / Scrum","AI development lifecycle","Phased release","Balanced teams (Tanzu / ex-Pivotal)","User stories & release planning","Waterfall / PMBOK","Vendor-led SDLC","Scheme compliance","COTS onboarding","Mainframe migration","Workflow & dashboard"]],
+  ["AI", ["Claude & LLMs","Claude Code","Claude Design","AI agents","MCP","RAG","Local LLMs","Speech recognition","Facial recognition","Figma Make","Stitch"]],
+  ["Industries & domains", ["Banking & payments","Gov-tech","Robotics","Cobots","EdTech","Fraud prevention","Low-latency trading","Infrastructure","Data & BI"]],
+];
+const catOf = t => PAST_CERTS.includes(t) ? "Past certifications" : (CATS.find(([,l]) => l.includes(t)) || ["Technology, platforms & vendors"])[0];
+const counts = new Map();
+const bump = t => counts.set(t, (counts.get(t)||0) + 1);
+// tags on roles and personal projects (stored as data), work projects and frameworks (rendered spans)
+document.querySelectorAll(".stage,.proj").forEach(n => { const ts = n.dataset.tags.split("|").map(norm); n.dataset.tags = ts.join("|"); ts.forEach(bump); });
+document.querySelectorAll(".case, .frameworks").forEach(n => {
+  const ts = [...n.querySelectorAll(".tag")].map(g => { const t = norm(g.textContent.trim()); g.dataset.t = t; return t; });
+  if (n.matches(".case")) n.dataset.tags = ts.join("|");
+  ts.forEach(bump);
+});
+document.querySelectorAll(".stage .tag,.proj .tag").forEach(g => { g.dataset.t = norm(g.dataset.t); g.textContent = g.dataset.t; });
+// certifications that have not been renewed are shown as tags
+const PAST_CERTS = ["AWS Solutions Architect","Certified ScrumMaster","CCNA","HCNA","ROS Instructor"];
+PAST_CERTS.forEach(t => counts.set(t, 1));
+const order = [...CATS.map(c => c[0]), "Technology, platforms & vendors", "Past certifications"];
+const tier = n => n >= 5 ? 4 : n >= 3 ? 3 : n === 2 ? 2 : 1;
+order.forEach(cat => {
+  const list = [...counts].filter(([t]) => catOf(t) === cat).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0]));
+  if (!list.length) return;
+  const box = el("div","kwgroup"); box.append(el("h3",null,`${cat} <span>${list.length}</span>`));
+  const cloud = el("div","cloud");
+  list.forEach(([t,n]) => {
+    const b = el("button",`chip kw t${tier(n)}`); b.type="button"; b.id="skill-"+t.replace(/\W+/g,"-").toLowerCase();
+    b.append(document.createTextNode(t)); if (n > 1) b.append(el("sup",null,"×"+n));
+    b.dataset.t = t; b.setAttribute("aria-pressed","false"); b.title = `Used in ${n} place${n>1?"s":""}`;
+    b.onclick = () => setFilter(active===t ? null : t); cloud.append(b);
+  });
+  box.append(cloud); $("#skillGroups").append(box);
+});
+
+function setFilter(skill){
+  active = skill;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", String(c.dataset.t===skill)));
+  let roles=0, projs=0;
+  document.querySelectorAll(".stage,.proj,.case").forEach(n=>{
+    const hit = !skill || n.dataset.tags.split("|").includes(skill);
+    n.classList.toggle("dim", !hit);
+    if (skill && hit) n.classList.contains("stage") ? roles++ : projs++;
+  });
+  document.querySelectorAll(".tag").forEach(t=>t.classList.toggle("hit", t.dataset.t===skill));
+  const bar = $("#filterbar");
+  if (!skill){ bar.textContent = "Tap a tag to highlight where it appears."; return; }
+  bar.innerHTML = "";
+  bar.append(el("span",null,`<strong style="color:var(--fg)">${skill}</strong> · ${roles} role${roles!==1?"s":""}, ${projs} project${projs!==1?"s":""} highlighted`));
+  const clr = el("button",null,"Clear"); clr.type="button"; clr.onclick=()=>setFilter(null); bar.append(clr);
+}
+
+// back-links: show which stories cite each reference
+const storyTitle = id => document.getElementById(id).querySelector("h3").textContent;
+const cites = {};
+document.querySelectorAll(".story").forEach(st => st.querySelectorAll("a.ref").forEach(a => {
+  const t = a.getAttribute("href").slice(1); (cites[t] ||= new Set()).add(st.id);
+}));
+for (const [t, set] of Object.entries(cites)) {
+  const target = document.getElementById(t);
+  continue; // "Cited in" back-links are switched off
+  const box = el("div","citedby"); box.append(el("span",null,"Cited in"));
+  set.forEach(sid => { const a = el("a","back",storyTitle(sid)); a.href = "#"+sid; box.append(a); });
+  (target.matches(".stage") ? target.lastElementChild : target).append(box);
+}
+
+function flash(node){ node.classList.remove("flash"); void node.offsetWidth; node.classList.add("flash"); }
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.addEventListener("click", e => {
+  const a = e.target.closest("a.ref, a.back, .glance a, nav a, .launcher a");
+  if (!a) return;
+  const id = a.getAttribute("href").slice(1), node = document.getElementById(id);
+  if (!node) return;
+  e.preventDefault();
+  if (id.startsWith("skill-")) { setFilter(node.dataset.t); }
+  const behavior = reduce ? "auto" : "smooth";
+  if (id === "top") { scrollTo({top: 0, behavior}); }
+  else if (id.startsWith("ref-") || ["summary","method","stories","references","contact","delivery-models"].includes(id)) {
+    const navH = document.querySelector("nav").getBoundingClientRect().bottom;
+    scrollTo({top: node.getBoundingClientRect().top + scrollY - navH - 12, behavior});
+  } else { node.scrollIntoView({behavior, block: "center"}); }
+  if (a.matches(".ref,.back")) flash(node);
+});
+
+// employer filter for work projects
+document.querySelectorAll(".ef").forEach(b => b.onclick = () => {
+  const e = b.dataset.emp;
+  document.querySelectorAll(".ef").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  document.querySelectorAll(".case[data-emp]").forEach(c => c.hidden = !!e && c.dataset.emp !== e);
+});
+// opening a work project from a story: show it even if filtered out, and expand its details
+document.addEventListener("click", e => {
+  const a = e.target.closest("a.ref, a.back"); if (!a) return;
+  const n = document.getElementById(a.getAttribute("href").slice(1));
+  if (n && n.matches(".case")) { if (n.hidden) document.querySelector('.ef[data-emp=""]').click(); }
+}, true);
+
+// always open at the top, even after a refresh or with a #link
+try { history.scrollRestoration = "manual"; } catch {}
+if (location.hash) { try { history.replaceState(null, "", location.pathname + location.search); } catch {} }
+scrollTo(0, 0);
+addEventListener("load", () => scrollTo(0, 0));
+
+// quick launcher: highlight the section in view
+const goLinks=[...document.querySelectorAll(".launcher a.go:not(.totop)")];
+const goTargets=goLinks.map(a=>document.getElementById(a.getAttribute("href").slice(1)));
+function spy(){
+  const y=innerHeight*0.3; let cur=-1;
+  goTargets.forEach((t,i)=>{ if(t && t.getBoundingClientRect().top<=y) cur=i; });
+  goLinks.forEach((a,i)=>a.classList.toggle("on",i===cur));
+  const on=goLinks[cur]; if(on){ const L=on.parentElement; const l=on.offsetLeft-L.offsetLeft; if(l<L.scrollLeft||l+on.offsetWidth>L.scrollLeft+L.clientWidth) L.scrollTo({left:l-16,behavior:"auto"}); }
+}
+addEventListener("scroll",spy,{passive:true}); spy();
+
+document.querySelectorAll("button.copy").forEach(b => b.onclick = async () => {
+  const v = document.getElementById(b.dataset.copy);
+  try { await navigator.clipboard.writeText(v.textContent); b.textContent="Copied"; }
+  catch { const r=document.createRange(); r.selectNodeContents(v); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent="Selected"; }
+  setTimeout(()=>b.textContent="Copy",2000);
+});
+</script>
+
+</body>
+</html>
