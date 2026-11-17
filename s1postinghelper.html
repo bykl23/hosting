@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPH2F1NZ6C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-SPH2F1NZ6C');
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1039580989758703"
+     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSLE Posting Choice Helper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Lora:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { margin: 0; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react" data-type="module">
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Data: parsed from the 147-school table. "M" suffix = SAP school for that track.
+// Cut-offs are stored as numbers; SAP flag stored separately per track.
+// null = track not offered.
+// ─────────────────────────────────────────────────────────────────────────────
+const RAW = `1	Hwa Chong Institution (Secondary)	6M	-	-	-	Bukit Timah
+2	Nanyang Girls' High	6M	8M	-	-	Bukit Timah
+3	Raffles Girls' (Secondary)	6	-	-	-	Toa Payoh
+4	Raffles Institution (Secondary)	6	-	-	-	Bishan
+5	Anglo-Chinese (Independent) (Secondary)	7	8	13	-	Queenstown
+6	Catholic High (Secondary)	7M	8M	12	-	Bishan
+7	CHIJ St. Nicholas Girls' (Secondary)	7M	8M	14	-	Ang Mo Kio
+8	Dunman High (Secondary)	8M	-	-	-	Kallang
+9	Methodist Girls' (Secondary)	6	8	17	-	Bukit Timah
+10	National Junior College (Secondary)	8	-	-	-	Bukit Timah
+11	Singapore Chinese Girls'	7	8	17	-	Novena
+12	St. Joseph's Institution (Secondary)	7	8	12	-	Novena
+13	Temasek Junior College (Secondary)	8	-	-	-	Tampines
+14	Anglo-Chinese (Barker Road)	-	9	21	21	Novena
+15	Cedar Girls'	9	9	-	-	Toa Payoh
+16	River Valley High (Secondary)	9M	-	-	-	Jurong West
+17	St. Andrew's	-	9	22	21	Toa Payoh
+18	Victoria	8	9	-	-	Bedok
+19	CHIJ Secondary (Toa Payoh)	-	10	20	22	Toa Payoh
+20	Chung Cheng High (Main)	-	10M	-	-	Marine Parade
+21	Nan Hua High	-	10M	-	-	Clementi
+22	Paya Lebar Methodist Girls' (Secondary)	-	10	20	23	Hougang
+23	Anderson	-	11	23	28	Ang Mo Kio
+24	Bukit Panjang Govt. High	-	11	22	26	Bukit Panjang
+25	Chung Cheng High (Yishun)	-	11	22	27	Yishun
+26	Fairfield Methodist (Secondary)	-	11	20	21	Queenstown
+27	Nan Chiau High	-	11M	-	-	Sengkang
+28	St. Margaret's (Secondary)	-	11	20	23	Bukit Timah
+29	St. Patrick's	-	11	20	22	Bedok
+30	Swiss Cottage	-	11	22	26	Bukit Batok
+31	Temasek	-	11	22	26	Bedok
+32	Anglican High	-	12	-	-	Bedok
+33	Maris Stella High (Secondary)	-	12	16	-	Bedok
+34	Ngee Ann	-	12	16	21	Tampines
+35	Zhonghua	-	12	23	27	Serangoon
+36	CHIJ St. Theresa's Convent	-	13	20	24	Bukit Merah
+37	Clementi Town	-	13	23	28	Clementi
+38	Commonwealth	-	13	23	28	Jurong East
+39	Crescent Girls'	-	13	23	-	Bukit Merah
+40	Fuhua	-	13	23	28	Jurong West
+41	Presbyterian High	-	13	24	28	Ang Mo Kio
+42	Tanjong Katong Girls'	-	13	23	-	Marine Parade
+43	Tanjong Katong	-	13	23	-	Marine Parade
+44	Xinmin	-	13	23	28	Hougang
+45	Yishun Town	-	13	22	27	Yishun
+46	CHIJ Katong Convent	-	14	20	24	Marine Parade
+47	CHIJ St. Joseph's Convent	-	14	20	23	Sengkang
+48	Dunman	-	14	23	27	Tampines
+49	Edgefield	-	14	23	27	Punggol
+50	Geylang Methodist (Secondary)	-	14	21	24	Central
+51	Holy Innocents' High	-	14	22	24	Serangoon
+52	Hua Yi	-	14	23	27	Jurong West
+53	Kranji	-	14	24	28	Choa Chu Kang
+54	Pei Hwa	-	14	23	27	Sengkang
+55	Riverside	-	14	23	27	Woodlands
+56	St. Hilda's	-	14	22	23	Tampines
+57	Bukit Batok	-	15	23	26	Bukit Batok
+58	Evergreen	-	15	23	26	Woodlands
+59	Gan Eng Seng	-	15	24	27	Bukit Merah
+60	Hai Sing Catholic	-	15	23	27	Pasir Ris
+61	St. Anthony's Canossian	-	15	22	24	Bedok
+62	St. Gabriel's	-	15	22	24	Serangoon
+63	Yusof Ishak	-	15	22	27	Punggol
+64	Ang Mo Kio	-	16	24	28	Ang Mo Kio
+65	Bedok View	-	16	24	28	Bedok
+66	Bowen	-	16	24	28	Hougang
+67	Deyi	-	16	24	30	Ang Mo Kio
+68	Greendale	-	16	23	27	Punggol
+69	Jurong	-	16	24	27	Jurong West
+70	Jurong West	-	16	24	28	Jurong West
+71	Christ Church	-	17	23	29	Woodlands
+72	Mayflower	-	17	24	28	Ang Mo Kio
+73	Outram	-	17	23	26	Sengkang
+74	Pasir Ris	-	17	23	27	Tampines
+75	Queensway	-	17	25	28	Queenstown
+76	West Spring	-	17	24	27	Bukit Panjang
+77	Ahmad Ibrahim	-	18	24	28	Yishun
+78	Beatty	-	18	25	28	Toa Payoh
+79	Bedok South	-	18	25	30	Bedok
+80	Compassvale	-	18	24	27	Sengkang
+81	Hillgrove	-	18	24	27	Bukit Batok
+82	Kent Ridge	-	18	24	30	Clementi
+83	North Vista	-	18	24	28	Sengkang
+84	Pasir Ris Crest	-	18	24	30	Pasir Ris
+85	Unity	-	18	24	28	Choa Chu Kang
+86	Yuan Ching	-	18	24	28	Jurong West
+87	Naval Base	-	19	24	27	Yishun
+88	Orchid Park	-	19	24	27	Yishun
+89	Punggol	-	19	24	27	Punggol
+90	Seng Kang	-	19	24	27	Sengkang
+91	Tampines	-	19	24	27	Tampines
+92	Woodgrove	-	19	24	28	Woodlands
+93	Bedok Green	-	20	25	30	Bedok
+94	Bukit View	-	20	24	29	Bukit Batok
+95	Chua Chu Kang	-	20	24	28	Choa Chu Kang
+96	Hougang	-	20	24	27	Hougang
+97	Kuo Chuan Presbyterian	-	20	23	28	Bishan
+98	New Town	-	20	25	30	Queenstown
+99	Peicai	-	20	25	30	Serangoon
+100	Peirce	-	20	25	30	Bishan
+101	Serangoon	-	20	25	28	Serangoon
+102	Yishun	-	20	24	27	Yishun
+103	Yuhua	-	20	25	28	Jurong West
+104	Zhenghua	-	20	24	27	Bukit Panjang
+105	Bartley	-	21	25	30	Toa Payoh
+106	Junyuan	-	21	25	28	Tampines
+107	Manjusri	-	21	22	28	Geylang
+108	Admiralty	-	22	25	29	Woodlands
+109	Assumption English	-	22	25	29	Bukit Panjang
+110	Bendemeer	-	22	25	28	Kallang
+111	Boon Lay	-	22	25	30	Jurong West
+112	Broadrick	-	22	25	30	Geylang
+113	Bukit Merah	-	22	25	28	Bukit Merah
+114	Canberra	-	22	25	29	Sembawang
+115	Changkat Changi	-	22	25	30	Tampines
+116	Damai	-	22	25	30	Bedok
+117	Dunearn	-	22	25	29	Bukit Batok
+118	East Spring	-	22	25	29	Tampines
+119	Greenridge	-	22	25	28	Bukit Panjang
+120	Guangyang	-	22	25	30	Bishan
+121	Jurongville	-	22	25	28	Jurong East
+122	Juying	-	22	25	30	Jurong West
+123	Loyang View	-	22	25	30	Pasir Ris
+124	Marsiling	-	22	25	27	Woodlands
+125	Meridian	-	22	25	28	Pasir Ris
+126	Montfort	-	22	22	28	Hougang
+127	Northbrooks	-	22	25	27	Yishun
+128	Northland	-	22	25	28	Yishun
+129	Queenstown	-	22	25	30	Queenstown
+130	Regent	-	22	25	30	Choa Chu Kang
+131	Sembawang	-	22	25	29	Sembawang
+132	Serangoon Garden	-	22	25	30	Serangoon
+133	Springfield	-	22	25	30	Tampines
+134	Westwood	-	22	25	28	Jurong West
+135	Whitley	-	22	25	30	Bishan
+136	Woodlands Ring	-	22	25	29	Woodlands
+137	Woodlands	-	22	25	28	Woodlands
+138	Yio Chu Kang	-	22	25	30	Ang Mo Kio
+139	Yuying	-	22	25	29	Hougang`;
+
+const parseCell = (cell) => {
+  if (cell === "-" || cell === "") return { value: null, sap: false };
+  const sap = cell.endsWith("M");
+  const num = parseInt(sap ? cell.slice(0, -1) : cell, 10);
+  return { value: isNaN(num) ? null : num, sap };
+};
+
+// School type: Boys / Girls / Mixed. Unlisted = Mixed.
+const SCHOOL_TYPE = {
+  // Boys-only
+  1: "Boys", 4: "Boys", 5: "Boys", 6: "Boys", 12: "Boys", 14: "Boys",
+  17: "Boys", 18: "Boys", 29: "Boys", 33: "Boys", 62: "Boys", 126: "Boys",
+  // Girls-only
+  2: "Girls", 3: "Girls", 7: "Girls", 9: "Girls", 11: "Girls", 15: "Girls",
+  19: "Girls", 22: "Girls", 28: "Girls", 36: "Girls", 39: "Girls", 42: "Girls",
+  46: "Girls", 47: "Girls", 61: "Girls",
+};
+
+const SCHOOLS = RAW.trim().split("\n").map((line) => {
+  const parts = line.split("\t");
+  const [no, name, ipRaw, pg3Raw, pg2Raw, pg1Raw, zone] = parts;
+  const ip = parseCell(ipRaw);
+  const pg3 = parseCell(pg3Raw);
+  const pg2 = parseCell(pg2Raw);
+  const pg1 = parseCell(pg1Raw);
+  const schoolNo = parseInt(no, 10);
+  return {
+    no: schoolNo,
+    name,
+    zone,
+    tracks: { IP: ip, PG3: pg3, PG2: pg2, PG1: pg1 },
+    isSAP: ip.sap || pg3.sap || pg2.sap || pg1.sap,
+    type: SCHOOL_TYPE[schoolNo] || "Mixed",
+  };
+});
+
+const AREAS = ["Ang Mo Kio", "Bedok", "Bishan", "Bukit Batok", "Bukit Merah", "Bukit Panjang", "Bukit Timah", "Central", "Choa Chu Kang", "Clementi", "Geylang", "Hougang", "Jurong East", "Jurong West", "Kallang", "Marine Parade", "Novena", "Pasir Ris", "Punggol", "Queenstown", "Sembawang", "Sengkang", "Serangoon", "Tampines", "Toa Payoh", "Woodlands", "Yishun"];
+
+// Group areas into broader regions for the filter UI
+const REGIONS = {
+  "North": ["Sembawang", "Woodlands", "Yishun"],
+  "North-East": ["Ang Mo Kio", "Hougang", "Punggol", "Sengkang", "Serangoon"],
+  "East": ["Bedok", "Geylang", "Marine Parade", "Pasir Ris", "Tampines"],
+  "West": ["Bukit Batok", "Bukit Panjang", "Choa Chu Kang", "Clementi", "Jurong East", "Jurong West"],
+  "Central": ["Bishan", "Bukit Merah", "Bukit Timah", "Central", "Kallang", "Novena", "Queenstown", "Toa Payoh"],
+};
+const TRACKS = ["IP", "PG3", "PG2", "PG1"];
+const HCL_RANK = { None: 0, Pass: 1, Merit: 2, Distinction: 3 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Component
+// ─────────────────────────────────────────────────────────────────────────────
+function PSLEShortlister() {
+  const [score, setScore] = React.useState(10);
+  const [scoreInput, setScoreInput] = React.useState("10");
+  const [hcl, setHcl] = React.useState("None");
+  const [zones, setZones] = React.useState(new Set(AREAS));
+  const [tracks, setTracks] = React.useState(new Set(["IP", "PG3", "PG2", "PG1"]));
+  const [sortBy, setSortBy] = React.useState("cutoff"); // name | cutoff
+  const [schoolTypes, setSchoolTypes] = React.useState(new Set(["Boys", "Girls", "Mixed"]));
+  const [picks, setPicks] = React.useState([]); // array of school.no in priority order
+
+  const toggle = (set, val, setter) => {
+    const next = new Set(set);
+    if (next.has(val)) next.delete(val); else next.add(val);
+    setter(next);
+  };
+
+  const results = React.useMemo(() => {
+    const out = [];
+    const hclMeetsSAP = HCL_RANK[hcl] >= HCL_RANK.Merit;
+
+    for (const s of SCHOOLS) {
+      if (!zones.has(s.zone)) continue;
+      if (!schoolTypes.has(s.type)) continue;
+
+      // Find best matching track among user's selected tracks
+      // difference = score - cutoff. Lower (more negative) = safer. Allow up to +2 (near-miss).
+      let best = null;
+      for (const t of TRACKS) {
+        if (!tracks.has(t)) continue;
+        const cell = s.tracks[t];
+        if (cell.value == null) continue;
+        const difference = score - cell.value;
+        if (difference > 2) continue; // exclude only if more than 2 pts above cut-off
+        if (!best || difference < best.difference) { // lower difference = safer
+          best = { track: t, cutoff: cell.value, sap: cell.sap, difference };
+        }
+      }
+      if (!best) continue;
+
+      // HCL rule for SAP tracks: only flag HCL low when the score doesn't already
+      // give a comfortable difference. If difference < 0 (score below cut-off), the student
+      // is comfortably qualified by score, so don't show the HCL warning.
+      const hclWarning = best.sap && !hclMeetsSAP && best.difference >= 0;
+      const hclRisky = hclWarning;
+
+      out.push({ ...s, match: best, hclWarning, hclRisky });
+    }
+
+    out.sort((a, b) => {
+      if (sortBy === "name") return a.name.localeCompare(b.name);
+      return a.match.cutoff - b.match.cutoff; // cut-off ascending
+    });
+    return out;
+  }, [score, hcl, zones, tracks, sortBy, schoolTypes]);
+
+  const pickedSchools = picks
+    .map((no) => SCHOOLS.find((s) => s.no === no))
+    .filter(Boolean);
+
+  // Re-evaluate match info for picked schools using current filters
+  const pickedWithMatch = pickedSchools.map((s) => {
+    const hclMeetsSAP = HCL_RANK[hcl] >= HCL_RANK.Merit;
+    let best = null;
+    for (const t of TRACKS) {
+      if (!tracks.has(t)) continue;
+      const cell = s.tracks[t];
+      if (cell.value == null) continue;
+      const difference = score - cell.value;
+      if (difference > 2) continue;
+      if (!best || difference < best.difference) {
+        best = { track: t, cutoff: cell.value, sap: cell.sap, difference };
+      }
+    }
+    const hclRisky = best && best.sap && !hclMeetsSAP && best.difference >= 0;
+    return { ...s, match: best, hclRisky };
+  });
+
+  const addPick = (no) => {
+    if (picks.includes(no)) return;
+    if (picks.length >= 6) return;
+    setPicks([...picks, no]);
+  };
+  const removePick = (no) => setPicks(picks.filter((x) => x !== no));
+  const movePick = (no, dir) => {
+    const idx = picks.indexOf(no);
+    if (idx < 0) return;
+    const swap = idx + dir;
+    if (swap < 0 || swap >= picks.length) return;
+    const next = [...picks];
+    [next[idx], next[swap]] = [next[swap], next[idx]];
+    setPicks(next);
+  };
+
+  const exportText = pickedWithMatch
+    .map((s, i) => `${i + 1}. ${s.name} — ${s.zone}${s.match ? ` (${s.match.track}, cut-off ${s.match.cutoff}${s.match.sap ? "M" : ""})` : ""}${s.hclRisky ? " [HCL risky]" : ""}`)
+    .join("\n");
+
+  const [copied, setCopied] = React.useState(false);
+  const [showShareMenu, setShowShareMenu] = React.useState(false);
+
+  const copyExport = async () => {
+    try {
+      await navigator.clipboard.writeText(exportText);
+      setCopied(true);
+      setShowShareMenu(false);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (e) {}
+  };
+
+  const shareExport = async () => {
+    if (picks.length === 0) return;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "My S1 School Choices", text: exportText });
+        return;
+      } catch (e) {
+        if (e.name === "AbortError") return;
+        // share failed — fall through to menu
+      }
+    }
+    setShowShareMenu((v) => !v);
+  };
+
+  // Strategy summary
+  const strategy = React.useMemo(() => {
+    const overshoot = pickedWithMatch.filter((s) => s.match && s.match.difference > 0).length;
+    const reach = pickedWithMatch.filter((s) => s.match && (s.match.difference === 0 || s.hclRisky)).length;
+    const safe = pickedWithMatch.filter((s) => s.match && s.match.difference <= -1 && !s.hclRisky).length;
+    const zoneSet = new Set(pickedWithMatch.map((s) => s.zone));
+    return { overshoot, reach, safe, zones: [...zoneSet] };
+  }, [pickedWithMatch]);
+
+  const differenceTone = (difference) => {
+    if (difference > 0) return "tight";        // red — over cut-off (+1, +2)
+    if (difference < 0) return "comfort";      // green — below cut-off (safer)
+    return "borderline";                    // yellow — exactly tied (0)
+  };
+
+  return (
+    <div className="min-h-screen bg-stone-50 text-stone-900" style={{ fontFamily: "'Lora', Georgia, serif" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Lora:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+        .display { font-family: 'Fraunces', Georgia, serif; font-feature-settings: "ss01"; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .grid-bg {
+          background-image: linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+          background-size: 32px 32px;
+        }
+        .chip {
+          transition: all 150ms ease;
+          border: 1px solid #d6d3d1;
+        }
+        .chip:hover { border-color: #292524; }
+        .chip.on {
+          background: #1c1917;
+          color: #fafaf9;
+          border-color: #1c1917;
+        }
+        .row { transition: background 120ms ease; }
+        .row:hover { background: #fafaf9; }
+        .pill {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 10px;
+          letter-spacing: 0.05em;
+          padding: 2px 7px;
+          border-radius: 999px;
+          text-transform: uppercase;
+        }
+        .tone-safe { background: #064e3b; color: #ecfdf5; }
+        .tone-comfort { background: #15803d; color: #f0fdf4; }
+        .tone-borderline { background: #ca8a04; color: #fefce8; }
+        .tone-tight { background: #991b1b; color: #fef2f2; }
+        .tone-sap { background: #1e1b4b; color: #eef2ff; }
+        .tone-warn { background: #fbbf24; color: #422006; }
+        /* Posting track tier colors — IP brightest, then PG3 → PG2 → PG1 */
+        .track-ip  { background: #7c2d12; color: #fff7ed; }
+        .track-pg3 { background: #1e40af; color: #eff6ff; }
+        .track-pg2 { background: #0e7490; color: #ecfeff; }
+        .track-pg1 { background: #4d7c0f; color: #f7fee7; }
+        .num-input::-webkit-inner-spin-button { opacity: 1; }
+        .tone-boys  { background: #1e3a5f; color: #dbeafe; }
+        .tone-girls { background: #6b1044; color: #fce7f3; }
+        .tone-mixed { background: #374151; color: #f3f4f6; }
+      `}</style>
+
+      {/* HEADER */}
+      <header className="border-b border-stone-300 bg-stone-100 grid-bg">
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          <div className="flex items-baseline justify-between gap-4 flex-wrap">
+            <div>
+              <div className="mono text-xs tracking-widest text-stone-500 uppercase mb-2">
+                PSLE · Secondary School Posting Helper
+              </div>
+              <h1 className="display text-5xl md:text-6xl font-black leading-none tracking-tight">
+                Six Choices.<br/>
+                <span className="italic font-medium text-stone-500">Decide carefully.</span>
+              </h1>
+            </div>
+            <div className="mono text-xs text-stone-500 max-w-xs leading-relaxed">
+              A shortlisting tool for Primary 6 students and parents.
+              Filters {SCHOOLS.length} secondary schools by score, track, and area using 2025 cut-offs points.
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+
+        {/* INPUT PANEL */}
+        <section>
+          <SectionHeader num="01" title="Student details" />
+          <div className="grid md:grid-cols-12 gap-6 mt-6">
+
+            {/* Score */}
+            <div className="md:col-span-3 bg-white border border-stone-200 p-5">
+              <div className="mono text-[10px] tracking-widest text-stone-500 uppercase mb-3">PSLE AL Score</div>
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={scoreInput}
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9]/g, "");
+                  setScoreInput(v);
+                  if (v !== "") {
+                    const n = parseInt(v, 10);
+                    if (n >= 4 && n <= 36) setScore(n);
+                  }
+                }}
+                onBlur={() => {
+                  const n = parseInt(scoreInput, 10);
+                  if (isNaN(n)) {
+                    setScoreInput(String(score));
+                  } else {
+                    const clamped = Math.max(4, Math.min(36, n));
+                    setScore(clamped);
+                    setScoreInput(String(clamped));
+                  }
+                }}
+                className="num-input display text-5xl font-black w-full bg-transparent outline-none border-b-2 border-stone-900 pb-1"
+              />
+              <div className="mono text-[10px] text-stone-500 mt-2">Range 4 (best) – 36 (worst)</div>
+            </div>
+
+            {/* HCL */}
+            <div className="md:col-span-3 bg-white border border-stone-200 p-5">
+              <div className="mono text-[10px] tracking-widest text-stone-500 uppercase mb-3">Higher Chinese</div>
+              <div className="flex flex-wrap gap-2">
+                {["None", "Pass", "Merit", "Distinction"].map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => setHcl(h)}
+                    className={`chip px-3 py-1.5 text-sm ${hcl === h ? "on" : "bg-white"}`}
+                  >
+                    {h}
+                  </button>
+                ))}
+              </div>
+              <div className="mono text-[10px] text-stone-500 mt-3">Additional criteria for SAP schools</div>
+            </div>
+
+            {/* Tracks */}
+            <div className="md:col-span-3 bg-white border border-stone-200 p-5">
+              <div className="mono text-[10px] tracking-widest text-stone-500 uppercase mb-3">Posting tracks</div>
+              <div className="flex flex-wrap gap-2">
+                {TRACKS.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => toggle(tracks, t, setTracks)}
+                    className={`chip px-3 py-1.5 text-sm ${tracks.has(t) ? "on" : "bg-white"}`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+              <div className="mono text-[10px] text-stone-500 mt-3">Pick all you would consider</div>
+            </div>
+
+            {/* School type */}
+            <div className="md:col-span-3 bg-white border border-stone-200 p-5">
+              <div className="mono text-[10px] tracking-widest text-stone-500 uppercase mb-3">School type</div>
+              <div className="flex flex-wrap gap-2">
+                {["Boys", "Girls", "Mixed"].map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => toggle(schoolTypes, t, setSchoolTypes)}
+                    className={`chip px-3 py-1.5 text-sm ${schoolTypes.has(t) ? "on" : "bg-white"}`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+              <div className="mono text-[10px] text-stone-500 mt-3">Single-sex or co-ed</div>
+            </div>
+
+            {/* Areas (planning areas grouped by region) */}
+            <div className="md:col-span-12 bg-white border border-stone-200 p-5">
+              <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+                <div className="mono text-[10px] tracking-widest text-stone-500 uppercase">Preferred areas</div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setZones(new Set(AREAS))}
+                    className="mono text-[10px] uppercase tracking-widest text-stone-600 hover:text-stone-900 underline underline-offset-2"
+                  >
+                    Select all
+                  </button>
+                  <span className="text-stone-300">|</span>
+                  <button
+                    onClick={() => setZones(new Set())}
+                    className="mono text-[10px] uppercase tracking-widest text-stone-600 hover:text-stone-900 underline underline-offset-2"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-5 gap-4">
+                {Object.entries(REGIONS).map(([region, areas]) => {
+                  const allOn = areas.every((a) => zones.has(a));
+                  const anyOn = areas.some((a) => zones.has(a));
+                  return (
+                    <div key={region}>
+                      <button
+                        onClick={() => {
+                          const next = new Set(zones);
+                          if (allOn) areas.forEach((a) => next.delete(a));
+                          else areas.forEach((a) => next.add(a));
+                          setZones(next);
+                        }}
+                        className={`mono text-[10px] tracking-widest uppercase mb-2 px-2 py-0.5 ${
+                          allOn ? "bg-stone-900 text-stone-50" : anyOn ? "bg-stone-200 text-stone-700" : "text-stone-500"
+                        }`}
+                      >
+                        {region}
+                      </button>
+                      <div className="flex flex-wrap gap-1">
+                        {areas.map((a) => (
+                          <button
+                            key={a}
+                            onClick={() => toggle(zones, a, setZones)}
+                            className={`chip px-2 py-1 text-xs ${zones.has(a) ? "on" : "bg-white"}`}
+                          >
+                            {a}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        {/* RESULTS */}
+        <section>
+          <div className="flex items-baseline justify-between flex-wrap gap-4">
+            <SectionHeader num="02" title="Recommended schools" count={results.length} />
+            <div className="flex items-center gap-2 mono text-xs">
+              <span className="text-stone-500 uppercase tracking-widest text-[10px]">Sort:</span>
+              {[
+                { id: "cutoff", label: "Cut-off" },
+                { id: "name", label: "Name" },
+              ].map((o) => (
+                <button
+                  key={o.id}
+                  onClick={() => setSortBy(o.id)}
+                  className={`chip px-2 py-1 ${sortBy === o.id ? "on" : "bg-white"}`}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 bg-white border border-stone-200 overflow-hidden">
+            <div className="hidden md:grid grid-cols-12 mono text-[10px] uppercase tracking-widest text-stone-500 px-5 py-3 border-b border-stone-200 bg-stone-50">
+              <div className="col-span-4">School</div>
+              <div className="col-span-2">Area</div>
+              <div className="col-span-1 text-center">Track</div>
+              <div className="col-span-1 text-right">Cut-off</div>
+              <div className="col-span-1 text-right">Difference</div>
+              <div className="col-span-1 text-center">SAP</div>
+              <div className="col-span-1 text-center">HCL</div>
+              <div className="col-span-1 text-right">Pick</div>
+            </div>
+
+            {results.length === 0 && (
+              <div className="px-5 py-12 text-center text-stone-500 italic">
+                No schools match these filters. Try widening areas or tracks, or check your score.
+              </div>
+            )}
+
+            <div className="max-h-[480px] overflow-y-auto">
+              {results.map((s) => {
+                const tone = differenceTone(s.match.difference);
+                const isPicked = picks.includes(s.no);
+                return (
+                  <div
+                    key={s.no}
+                    className="row px-4 py-3 border-b border-stone-100 md:grid md:grid-cols-12 md:items-center md:px-5 text-sm"
+                  >
+                    {/* Mobile-first card layout */}
+                    <div className="md:col-span-4 flex items-start justify-between gap-3 md:block">
+                      <div className="flex-1 min-w-0">
+                        <div className="display font-semibold text-stone-900 leading-tight flex items-center gap-1.5 flex-wrap">
+                          {s.name}
+                          {s.type !== "Mixed" && <span className={`pill tone-${s.type.toLowerCase()}`}>{s.type}</span>}
+                        </div>
+                        <div className="mono text-[11px] text-stone-500 mt-0.5 md:hidden">{s.zone}</div>
+                      </div>
+                      {/* Add button shown inline on mobile (right of name), separate column on desktop */}
+                      <button
+                        onClick={() => isPicked ? removePick(s.no) : addPick(s.no)}
+                        disabled={!isPicked && picks.length >= 6}
+                        className={`md:hidden mono text-xs px-3 py-1.5 border shrink-0 ${
+                          isPicked
+                            ? "bg-stone-900 text-stone-50 border-stone-900"
+                            : "border-stone-300 disabled:opacity-30"
+                        }`}
+                      >
+                        {isPicked ? "✓" : "+ Add"}
+                      </button>
+                    </div>
+
+                    {/* Desktop area column */}
+                    <div className="hidden md:block md:col-span-2 mono text-xs text-stone-600">{s.zone}</div>
+
+                    {/* Mobile stats row + Desktop stat columns */}
+                    <div className="flex items-center gap-2 mt-2 md:mt-0 md:contents">
+                      <div className="md:col-span-1 md:text-center">
+                        <span className={`pill track-${s.match.track.toLowerCase()}`}>{s.match.track}</span>
+                      </div>
+                      <div className="md:col-span-1 mono text-sm md:text-right flex items-baseline gap-1 md:block">
+                        <span className="md:hidden mono text-[10px] uppercase tracking-widest text-stone-400">Cut</span>
+                        <span>{s.match.cutoff}{s.match.sap && <span className="text-indigo-700 font-bold ml-0.5">M</span>}</span>
+                      </div>
+                      <div className="md:col-span-1 mono text-sm md:text-right">
+                        <span className={`pill tone-${tone}`}>{s.match.difference >= 0 ? `+${s.match.difference}` : s.match.difference}</span>
+                      </div>
+                      <div className="md:col-span-1 md:text-center">
+                        {s.match.sap && <span className="pill tone-sap">SAP</span>}
+                      </div>
+                      <div className="md:col-span-1 md:text-center">
+                        {s.hclWarning && <span className="pill tone-warn">HCL low</span>}
+                      </div>
+                    </div>
+
+                    {/* Desktop-only Add button */}
+                    <div className="hidden md:block md:col-span-1 md:text-right">
+                      <button
+                        onClick={() => isPicked ? removePick(s.no) : addPick(s.no)}
+                        disabled={!isPicked && picks.length >= 6}
+                        className={`mono text-xs px-2 py-1 border ${
+                          isPicked
+                            ? "bg-stone-900 text-stone-50 border-stone-900"
+                            : "border-stone-300 hover:border-stone-900 disabled:opacity-30 disabled:hover:border-stone-300"
+                        }`}
+                      >
+                        {isPicked ? "✓ Added" : "+ Add"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mono text-[11px] text-stone-500 mt-3 leading-relaxed">
+            <span className="text-stone-700 font-semibold">difference</span> = your score minus cut-off. Lower (more negative) = safer.
+            Tones: <span className="pill tone-comfort">−1</span> safe · <span className="pill tone-borderline">+0</span> borderline · <span className="pill tone-tight">+1</span> over cut-off.
+            Schools where your score is up to 2 points above cut-off are shown so you can see realistic reach options.
+            <br/>
+            <span className="text-indigo-700 font-bold">M</span> next to a cut-off = SAP track (Higher Chinese Merit required).
+            If your HCL is below SAP school HCL requirement and your score doesn't already qualify you comfortably, the school is flagged <span className="pill tone-warn">low</span> and treated as not safe.
+          </div>
+        </section>
+
+        {/* PICKS */}
+        <section>
+          <SectionHeader num="03" title="Your six choices" count={`${picks.length}/6`} />
+
+          <div className="mt-6 grid md:grid-cols-3 gap-6">
+            <div className="md:col-span-2 space-y-2">
+              {Array.from({ length: 6 }).map((_, i) => {
+                const s = pickedWithMatch[i];
+                if (!s) {
+                  return (
+                    <div key={i} className="border border-dashed border-stone-300 px-4 py-4 text-stone-400 mono text-xs flex items-center gap-3">
+                      <span className="display text-3xl text-stone-300 w-8">{i + 1}</span>
+                      <span>Empty slot — add from list above</span>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={s.no} className="bg-white border border-stone-200 px-4 py-3 flex items-center gap-3">
+                    <span className="display text-3xl font-black w-8">{i + 1}</span>
+                    <div className="flex-1">
+                      <div className="display font-semibold flex items-center gap-2 flex-wrap">
+                        <span className="break-words">{s.name}</span>
+                        {s.type !== "Mixed" && <span className={`pill tone-${s.type.toLowerCase()}`}>{s.type}</span>}
+                        {s.match && <span className={`pill track-${s.match.track.toLowerCase()}`}>{s.match.track}</span>}
+                        {s.hclRisky && <span className="pill tone-warn">HCL risky</span>}
+                      </div>
+                      <div className="mono text-[11px] text-stone-500">
+                        {s.zone}
+                        {s.match && ` · cut-off ${s.match.cutoff}${s.match.sap ? "M" : ""} · ${s.match.difference >= 0 ? `+${s.match.difference}` : s.match.difference} difference`}
+                        {!s.match && ` · no longer matches your filters`}
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      <button onClick={() => movePick(s.no, -1)} disabled={i === 0}
+                        className="mono text-xs px-2 py-1 border border-stone-300 hover:border-stone-900 disabled:opacity-20">↑</button>
+                      <button onClick={() => movePick(s.no, 1)} disabled={i === picks.length - 1}
+                        className="mono text-xs px-2 py-1 border border-stone-300 hover:border-stone-900 disabled:opacity-20">↓</button>
+                      <button onClick={() => removePick(s.no)}
+                        className="mono text-xs px-2 py-1 border border-stone-300 hover:border-red-700 hover:text-red-700">×</button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Strategy panel */}
+            <aside className="bg-stone-900 text-stone-50 p-6">
+              <div className="mono text-[10px] tracking-widest text-stone-400 uppercase mb-4">Strategy based on 2025 cut-off</div>
+              <div className="space-y-4">
+                <StratRow label="Risky" value={strategy.overshoot} hint="+1 to +2 difference" />
+                <StratRow label="Exact" value={strategy.reach} hint="exactly +0 difference" />
+                <StratRow label="Safe" value={strategy.safe} hint="−1 difference or lower" />
+                <div className="border-t border-stone-700 pt-4">
+                  <div className="mono text-[10px] tracking-widest text-stone-400 uppercase mb-2">School Districts</div>
+                  <div className="display text-sm leading-relaxed">
+                    {strategy.zones.length > 0 ? strategy.zones.join(" · ") : <span className="text-stone-500 italic">none yet</span>}
+                  </div>
+                </div>
+                <div className="mono text-[11px] text-stone-400 leading-relaxed pt-2 border-t border-stone-700">
+                  A balanced set should have Safe picks for the middle priority, with a few Risky and Exact picks at the top and bottom.
+                </div>
+              </div>
+
+              <div className="mt-6 flex gap-2">
+                <button
+                  onClick={copyExport}
+                  disabled={picks.length === 0}
+                  className="flex-1 bg-stone-50 text-stone-900 mono text-xs py-3 hover:bg-amber-200 transition-colors disabled:opacity-40"
+                >
+                  {copied ? "✓ Copied!" : "Copy"}
+                </button>
+                <button
+                  onClick={shareExport}
+                  disabled={picks.length === 0}
+                  className={`flex-1 mono text-xs py-3 transition-colors disabled:opacity-40 ${showShareMenu ? "bg-amber-300 text-stone-900" : "bg-stone-700 text-stone-50 hover:bg-stone-600"}`}
+                >
+                  Share ↗
+                </button>
+              </div>
+
+              {showShareMenu && picks.length > 0 && (
+                <div className="mt-2 bg-stone-800 p-3 space-y-2">
+                  <div className="mono text-[10px] text-stone-400 uppercase tracking-widest mb-3">Share via</div>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(exportText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowShareMenu(false)}
+                    className="flex items-center gap-2 w-full bg-[#25D366] text-white mono text-xs py-2 px-3 hover:opacity-90 transition-opacity"
+                  >
+                    <span>💬</span><span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={`https://t.me/share/url?url=%20&text=${encodeURIComponent(exportText)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowShareMenu(false)}
+                    className="flex items-center gap-2 w-full bg-[#2CA5E0] text-white mono text-xs py-2 px-3 hover:opacity-90 transition-opacity"
+                  >
+                    <span>✈️</span><span>Telegram</span>
+                  </a>
+                  <button
+                    onClick={copyExport}
+                    className="flex items-center gap-2 w-full bg-stone-600 text-stone-50 mono text-xs py-2 px-3 hover:bg-stone-500 transition-colors text-left"
+                  >
+                    <span>📋</span><span>{copied ? "✓ Copied — paste in WeChat / Line / SMS" : "Copy — paste in WeChat / Line / SMS"}</span>
+                  </button>
+                </div>
+              )}
+
+              {picks.length > 0 && (
+                <pre className="mt-4 mono text-[10px] text-stone-300 whitespace-pre-wrap bg-stone-800 p-3 max-h-40 overflow-y-auto">
+{exportText}
+                </pre>
+              )}
+            </aside>
+          </div>
+        </section>
+
+        <footer className="pt-6 border-t border-stone-300 mono text-[10px] text-stone-500 leading-relaxed">
+          Cut-offs shown are previous year's posting data and serve as a reference only. Actual cut-offs vary year to year.
+          Verify current data with MOE before submitting your six choices.
+        </footer>
+      </main>
+    </div>
+  );
+}
+
+function SectionHeader({ num, title, count }) {
+  return (
+    <div className="flex items-baseline gap-4">
+      <span className="mono text-xs text-stone-400">{num}</span>
+      <h2 className="display text-2xl font-bold">{title}</h2>
+      {count !== undefined && (
+        <span className="mono text-xs text-stone-500">— {count}</span>
+      )}
+    </div>
+  );
+}
+
+function StratRow({ label, value, hint }) {
+  return (
+    <div className="flex items-baseline justify-between">
+      <div>
+        <div className="display text-sm">{label}</div>
+        <div className="mono text-[10px] text-stone-500">{hint}</div>
+      </div>
+      <div className="display text-3xl font-black">{value}</div>
+    </div>
+  );
+}
+
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(PSLEShortlister));
+  </script>
+</body>
+</html>
